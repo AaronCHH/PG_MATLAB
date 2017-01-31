@@ -29,6 +29,7 @@
 * [Ch21 Solving Equations](Ch21_Solving_Equations.md)  
 * [Ch22 Displaying Results](Ch22_Displaying_Results.md)  
 * [Ch23 Cell Publishing](Ch23_Cell_Publishing.md)  
+ 
 ---
 * [AppA Appendix The MATLAB Top 500](AppA_Appendix_The_MATLAB_Top_500.md)  
 * [AppB Desktop Tools and DevelopmentEnvironment](AppB_Desktop_Tools_and_DevelopmentEnvironment.md)  
