@@ -1,0 +1,171 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>16 Three-Dimensional Graphics</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-15"><meta name="DC.source" content="ch16.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>16 Three-Dimensional Graphics</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">16.1 Curve plots</a></li><li><a href="#2">16.2 Mesh and surface plots</a></li><li><a href="#3">16.3 Parametrically defined surfaces</a></li><li><a href="#4">16.4 Volume and vector visualization</a></li><li><a href="#5">16.5 Color shading and color profile</a></li><li><a href="#6">16.6 Perspective of view</a></li></ul></div><h2>16.1 Curve plots<a name="1"></a></h2><pre class="codeinput">t = .01:.01:20*pi ;
+x = cos(t) ;
+y = sin(t) ;
+z = t.^3 ;
+plot3(x, y, z)
+</pre><img vspace="5" hspace="5" src="ch16_01.png" alt=""> <h2>16.2 Mesh and surface plots<a name="2"></a></h2><pre class="codeinput">xx = -2:.2:2 ;
+yy = xx ;
+[x, y] = meshgrid(xx, yy) ;
+z = exp(-x.^2 - y.^2) ;
+mesh(z)
+</pre><img vspace="5" hspace="5" src="ch16_02.png" alt=""> <h2>16.3 Parametrically defined surfaces<a name="3"></a></h2><pre class="codeinput">figure(1) ; clf
+t = linspace(0, 2*pi, 512) ;
+[u,v] = meshgrid(t) ;
+
+a = -0.2 ; b = .5 ; c = .1 ;
+n = 2 ;
+x = (a*(1-v/(2*pi)) .* (1+cos(u)) + c) .* cos(n*v) ;
+y = (a*(1-v/(2*pi)) .* (1+cos(u)) + c) .* sin(n*v) ;
+z = b*v/(2*pi) + a*(1-v/(2*pi)) .* sin(u) ;
+
+surf(x,y,z,y-2*x)
+shading <span class="string">interp</span>
+<span class="comment">% shading faceted</span>
+<span class="comment">% shading flat</span>
+</pre><img vspace="5" hspace="5" src="ch16_03.png" alt=""> <h2>16.4 Volume and vector visualization<a name="4"></a></h2><pre class="codeinput">[x,y,z,v] = flow ;
+figure(1) ; clf
+isosurface(x, y, z, v, -3)
+
+figure(2) ; clf
+slice(x, y, z, v, [3 8], 0, 0)
+</pre><img vspace="5" hspace="5" src="ch16_04.png" alt=""> <img vspace="5" hspace="5" src="ch16_05.png" alt=""> <h2>16.5 Color shading and color profile<a name="5"></a></h2><pre class="codeinput">shading <span class="string">faceted</span>
+shading <span class="string">interp</span>
+shading <span class="string">flat</span>
+</pre><img vspace="5" hspace="5" src="ch16_06.png" alt=""> <h2>16.6 Perspective of view<a name="6"></a></h2><pre class="codeinput">axis <span class="string">off</span>
+axis <span class="string">equal</span>
+colormap(hsv(1024))
+shading <span class="string">interp</span>
+material <span class="string">shiny</span>
+lighting <span class="string">gouraud</span>
+lightangle(80, -40)
+lightangle(-90, 60)
+view([-120 0])
+</pre><img vspace="5" hspace="5" src="ch16_07.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 16 Three-Dimensional Graphics
+
+%% 16.1 Curve plots
+t = .01:.01:20*pi ;
+x = cos(t) ;
+y = sin(t) ;
+z = t.^3 ;
+plot3(x, y, z)
+
+%% 16.2 Mesh and surface plots
+xx = -2:.2:2 ;
+yy = xx ;
+[x, y] = meshgrid(xx, yy) ;
+z = exp(-x.^2 - y.^2) ;
+mesh(z)
+
+%% 16.3 Parametrically defined surfaces
+figure(1) ; clf
+t = linspace(0, 2*pi, 512) ;
+[u,v] = meshgrid(t) ;
+
+a = -0.2 ; b = .5 ; c = .1 ;
+n = 2 ;
+x = (a*(1-v/(2*pi)) .* (1+cos(u)) + c) .* cos(n*v) ;
+y = (a*(1-v/(2*pi)) .* (1+cos(u)) + c) .* sin(n*v) ;
+z = b*v/(2*pi) + a*(1-v/(2*pi)) .* sin(u) ;
+
+surf(x,y,z,y-2*x)
+shading interp
+% shading faceted
+% shading flat
+%% 16.4 Volume and vector visualization
+[x,y,z,v] = flow ;
+figure(1) ; clf
+isosurface(x, y, z, v, -3)
+
+figure(2) ; clf
+slice(x, y, z, v, [3 8], 0, 0)
+
+%% 16.5 Color shading and color profile
+
+shading faceted
+shading interp
+shading flat
+
+%% 16.6 Perspective of view
+
+axis off
+axis equal
+colormap(hsv(1024))
+shading interp
+material shiny
+lighting gouraud
+lightangle(80, -40)
+lightangle(-90, 60)
+view([-120 0])
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,15 @@
+Errata for the MATLAB Primer, 8th Edition
+
+    * Handle Graphics handles are not derived from the handle class as
+      described in Section 9.5 Object handle classes, page 67:
+      "Handle classes are also used for MATLAB graphics ..."
+      Copying the figure handle does not give a new figure object, but
+      continues to refer to the same figure. However, you can copy the
+      figure object and obtain a new figure object (see copyobj for
+      example).
+
+    * Section G.2, Handle Classes:  The handle class is not the superclass
+      of Handle Graphics objects. The handle class does not define set and
+      get methods, which seems to be implied by the list. A handle subclass could
+      define set and get methods (or derive from the hgsetget class), but set and
+      get are not inherited.  Of course, graphics object do support set and get.

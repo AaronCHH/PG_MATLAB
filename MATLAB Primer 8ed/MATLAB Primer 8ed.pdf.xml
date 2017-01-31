@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BookmarkExport>
+  <Item ID="1" Name="My Bookmarks" Page="0" Open="0">
+    <Item ID="2" Name="NM Int" Page="170" Open="0" />
+  </Item>
+  <Item ID="3" Name="Contents" Page="6" Open="0" />
+  <Item ID="4" Name="Preface" Page="14" Open="0" />
+  <Item ID="5" Name="Introduction" Page="16" Open="0" />
+  <Item ID="6" Name="1 Getting Started" Page="18" Open="0" />
+  <Item ID="7" Name="2 The MATLAB Desktop" Page="18" Open="0" />
+  <Item ID="8" Name="3 Matrices and Matrix Operations" Page="30" Open="0" />
+  <Item ID="9" Name="4 Submatrices and Colon Notation" Page="36" Open="0" />
+  <Item ID="10" Name="5 MATLAB Functions" Page="39" Open="0" />
+  <Item ID="11" Name="6 M-Files" Page="51" Open="0" />
+  <Item ID="12" Name="7 Control Flow Statements" Page="61" Open="0" />
+  <Item ID="13" Name="8 Advanced Data Structures" Page="69" Open="0" />
+  <Item ID="14" Name="9 Object-Oriented Programming" Page="74" Open="0" />
+  <Item ID="15" Name="10 Advanced M-file Features" Page="84" Open="0" />
+  <Item ID="16" Name="11 Code Development Tools" Page="94" Open="0" />
+  <Item ID="17" Name="12 Calling C from MATLAB" Page="103" Open="0" />
+  <Item ID="18" Name="13 Calling Fortran from MATLAB" Page="112" Open="0" />
+  <Item ID="19" Name="14 Calling Java from MATLAB" Page="117" Open="0" />
+  <Item ID="20" Name="15 Two-Dimensional Graphics" Page="123" Open="0" />
+  <Item ID="21" Name="16 Three-Dimensional Graphics" Page="130" Open="0" />
+  <Item ID="22" Name="17 Advanced Graphics" Page="135" Open="0" />
+  <Item ID="23" Name="18 Sparse Matrix Computations" Page="137" Open="0" />
+  <Item ID="24" Name="19 The Symbolic Math Toolbox" Page="142" Open="0" />
+  <Item ID="25" Name="20 Polynomials, Interpolation, andIntegration" Page="167" Open="0" />
+  <Item ID="26" Name="21 Solving Equations" Page="171" Open="0" />
+  <Item ID="27" Name="22 Displaying Results" Page="176" Open="0" />
+  <Item ID="28" Name="23 Cell Publishing" Page="180" Open="0" />
+  <Item ID="29" Name="A Appendix: The MATLAB Top 500" Page="182" Open="0" />
+  <Item ID="30" Name="B Desktop Tools and DevelopmentEnvironment" Page="182" Open="0" />
+  <Item ID="31" Name="C Data Import and Export" Page="185" Open="0" />
+  <Item ID="32" Name="D Mathematics" Page="187" Open="0" />
+  <Item ID="33" Name="E Data Analysis" Page="199" Open="0" />
+  <Item ID="34" Name="F Programming and Data Types" Page="201" Open="0" />
+  <Item ID="35" Name="G Object-Oriented Programming" Page="218" Open="0" />
+  <Item ID="36" Name="H Graphics" Page="219" Open="0" />
+  <Item ID="37" Name="I 3-D Visualization" Page="224" Open="0" />
+  <Item ID="38" Name="J GUI Development" Page="226" Open="0" />
+  <Item ID="39" Name="K External Interfaces" Page="228" Open="0" />
+  <Item ID="40" Name="L Symbolic Math Toolbox" Page="229" Open="0" />
+  <Item ID="41" Name="Back cover" Page="232" Open="0" />
+</BookmarkExport>

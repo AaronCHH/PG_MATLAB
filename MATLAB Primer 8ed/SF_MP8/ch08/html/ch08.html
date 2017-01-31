@@ -1,0 +1,298 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>8 Advanced Data Structures</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-14"><meta name="DC.source" content="ch08.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>8 Advanced Data Structures</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">8.1 Cell arrays</a></li><li><a href="#4">8.2 Structs</a></li><li><a href="#8">8.3 Sets</a></li><li><a href="#11">8.4 Other data types</a></li></ul></div><h2>8.1 Cell arrays<a name="1"></a></h2><pre class="codeinput">c = {[3 2 1] ,<span class="string">'I love MATLAB'</span>}
+</pre><pre class="codeoutput">
+c = 
+
+    [1x3 double]    'I love MATLAB'
+
+</pre><pre class="codeinput">d = {<span class="string">'Why do'</span> ,<span class="string">'I love MATLAB?'</span>, c}
+</pre><pre class="codeoutput">
+d = 
+
+    'Why do'    'I love MATLAB?'    {1x2 cell}
+
+</pre><h2>8.2 Structs<a name="4"></a></h2><pre class="codeinput">clear <span class="string">z</span>
+z.particle = <span class="string">'electron'</span>
+z.position = [2 0 3]
+z.spin = <span class="string">'up'</span>
+</pre><pre class="codeoutput">
+z = 
+
+    particle: 'electron'
+
+
+z = 
+
+    particle: 'electron'
+    position: [2 0 3]
+
+
+z = 
+
+    particle: 'electron'
+    position: [2 0 3]
+        spin: 'up'
+
+</pre><pre class="codeinput">z(2,3).particle = <span class="string">'proton'</span>
+z(2,3).position = <span class="string">'unknown'</span>
+</pre><pre class="codeoutput">
+z = 
+
+2x3 struct array with fields:
+
+    particle
+    position
+    spin
+
+
+z = 
+
+2x3 struct array with fields:
+
+    particle
+    position
+    spin
+
+</pre><pre class="codeinput">z = struct ( <span class="keyword">...</span>
+  <span class="string">'particle'</span>, {<span class="string">'electron'</span>,[],[] ;
+                [],[],<span class="string">'proton'</span> }, <span class="keyword">...</span>
+  <span class="string">'position'</span>, {[2 0 3], [],[] ;
+                [],[],<span class="string">'unknown'</span>}, <span class="keyword">...</span>
+  <span class="string">'spin'</span>, {<span class="string">'up'</span>, [],[] ;
+                [],[],[]})
+</pre><pre class="codeoutput">
+z = 
+
+2x3 struct array with fields:
+
+    particle
+    position
+    spin
+
+</pre><h2>8.3 Sets<a name="8"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  ismember
+</span><span class="comment">  intersect
+</span><span class="comment">  union
+</span><span class="comment">  setdiff
+</span><span class="comment">  unique
+</span><span class="comment">  setxor
+</span><span class="comment">  issorted
+</span><span class="comment">%}</span>
+</pre><pre class="codeinput">A = [1 2 5 6 8 8 9]
+B = [1 2 3 5 7]
+ismember(3,A)   <span class="comment">% 0</span>
+ismember(3,B)   <span class="comment">% 1</span>
+intersect(A,B)  <span class="comment">% [1 2 5]</span>
+setdiff(A,B)    <span class="comment">% [6 8 9]</span>
+union(A,B)      <span class="comment">% [1 2 3 5 6 7 8 9]</span>
+setxor(A,B)     <span class="comment">% [3 6 7 8 9]</span>
+unique(A)       <span class="comment">% [1 2 5 6 8 9]</span>
+</pre><pre class="codeoutput">
+A =
+
+     1     2     5     6     8     8     9
+
+
+B =
+
+     1     2     3     5     7
+
+
+ans =
+
+     0
+
+
+ans =
+
+     1
+
+
+ans =
+
+     1     2     5
+
+
+ans =
+
+     6     8     9
+
+
+ans =
+
+     1     2     3     5     6     7     8     9
+
+
+ans =
+
+     3     6     7     8     9
+
+
+ans =
+
+     1     2     5     6     8     9
+
+</pre><h2>8.4 Other data types<a name="11"></a></h2><pre class="codeinput">A = ones(3,4)
+B = rand(3,4)
+C = cat(3, A, B)
+</pre><pre class="codeoutput">
+A =
+
+     1     1     1     1
+     1     1     1     1
+     1     1     1     1
+
+
+B =
+
+    0.5861    0.7549    0.6878    0.3947
+    0.2621    0.2428    0.3592    0.6834
+    0.0445    0.4424    0.7363    0.7040
+
+
+C(:,:,1) =
+
+     1     1     1     1
+     1     1     1     1
+     1     1     1     1
+
+
+C(:,:,2) =
+
+    0.5861    0.7549    0.6878    0.3947
+    0.2621    0.2428    0.3592    0.6834
+    0.0445    0.4424    0.7363    0.7040
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 8 Advanced Data Structures
+
+%% 8.1 Cell arrays
+%% 
+c = {[3 2 1] ,'I love MATLAB'}
+
+%% 
+d = {'Why do' ,'I love MATLAB?', c}
+
+%% 8.2 Structs
+%% 
+clear z
+z.particle = 'electron'
+z.position = [2 0 3]
+z.spin = 'up'
+
+%% 
+z(2,3).particle = 'proton'
+z(2,3).position = 'unknown'
+
+%% 
+z = struct ( ...
+  'particle', {'electron',[],[] ;
+                [],[],'proton' }, ...
+  'position', {[2 0 3], [],[] ;
+                [],[],'unknown'}, ...
+  'spin', {'up', [],[] ;
+                [],[],[]}) 
+
+%% 8.3 Sets
+%% 
+%{
+  ismember
+  intersect
+  union
+  setdiff
+  unique
+  setxor
+  issorted
+%}
+
+%% 
+A = [1 2 5 6 8 8 9]
+B = [1 2 3 5 7]
+ismember(3,A)   % 0
+ismember(3,B)   % 1
+intersect(A,B)  % [1 2 5]
+setdiff(A,B)    % [6 8 9]
+union(A,B)      % [1 2 3 5 6 7 8 9]
+setxor(A,B)     % [3 6 7 8 9]
+unique(A)       % [1 2 5 6 8 9]
+
+
+%% 8.4 Other data types
+%% 
+A = ones(3,4)
+B = rand(3,4)
+C = cat(3, A, B)
+
+
+
+
+##### SOURCE END #####
+--></body></html>

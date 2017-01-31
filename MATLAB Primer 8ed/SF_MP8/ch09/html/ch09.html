@@ -1,0 +1,254 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ch09</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-14"><meta name="DC.source" content="ch09.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">9 Object-Oriented Programming</a></li><li><a href="#3">9.1 Object methods</a></li><li><a href="#5">9.2 Object inheritance and abstract classes</a></li><li><a href="#6">9.3 Object attributes</a></li><li><a href="#7">9.4 A more extensive example</a></li><li><a href="#8">9.5 Object handle classes</a></li></ul></div><h2>9 Object-Oriented Programming<a name="1"></a></h2><pre class="codeinput">z(1,2).Particle = <span class="string">'neutron'</span>
+</pre><pre class="codeoutput">
+z = 
+
+1x2 struct array with fields:
+
+    Particle
+
+</pre><pre class="codeinput">A = rand(4)
+F = factor0
+[F.L F.U] = lu(A)
+whos
+</pre><pre class="codeoutput">
+A =
+
+    0.6126    0.8013    0.5747    0.2467
+    0.9900    0.2278    0.8452    0.6664
+    0.5277    0.4981    0.7386    0.0835
+    0.4795    0.9009    0.5860    0.6260
+
+
+F = 
+
+  factor0 with properties:
+
+    L: []
+    U: []
+
+
+F = 
+
+  factor0 with properties:
+
+    L: [4x4 double]
+    U: [4x4 double]
+
+
+F = 
+
+  factor0 with properties:
+
+    L: [4x4 double]
+    U: [4x4 double]
+
+  Name      Size            Bytes  Class           Attributes
+
+  A         4x4               128  double                    
+  C         4x4               128  double                    
+  F         1x1               360  factor0                   
+  G         1x1               232  factor2_chol              
+  ans       4x1                32  double                    
+  b         4x1                32  double                    
+  z         1x2               198  struct                    
+
+</pre><h2>9.1 Object methods<a name="3"></a></h2><pre class="codeinput">A = rand(4)
+b = rand(4,1)
+F = factor1(A)
+F\b
+A\b
+</pre><pre class="codeoutput">
+A =
+
+    0.6609    0.7690    0.0170    0.8449
+    0.7298    0.5814    0.1209    0.2094
+    0.8908    0.9283    0.8627    0.5523
+    0.9823    0.5801    0.4843    0.6299
+
+
+b =
+
+    0.0320
+    0.6147
+    0.3624
+    0.0495
+
+
+F = 
+
+  factor1 with properties:
+
+            L: [4x4 double]
+            U: [4x4 double]
+    morestuff: []
+
+
+ans =
+
+    0.3817
+    1.1065
+   -0.3576
+   -1.2608
+
+
+ans =
+
+    0.3817
+    1.1065
+   -0.3576
+   -1.2608
+
+</pre><h2>9.2 Object inheritance and abstract classes<a name="5"></a></h2><pre class="codeinput">A = rand(4) ;
+C = A' *A ; <span class="comment">% symmetric pos. definite</span>
+b = rand(4,1) ;
+F = factor2_lu(A) ;
+F\b
+A\b
+G = factor2_chol(C) ;
+G\b
+C\b
+</pre><pre class="codeoutput">
+ans =
+
+   -1.0970
+   -1.7485
+    0.1573
+    2.9897
+
+
+ans =
+
+   -1.0970
+   -1.7485
+    0.1573
+    2.9897
+
+
+ans =
+
+   44.6045
+   21.1194
+    1.4243
+  -42.6983
+
+
+ans =
+
+   44.6045
+   21.1194
+    1.4243
+  -42.6983
+
+</pre><h2>9.3 Object attributes<a name="6"></a></h2><h2>9.4 A more extensive example<a name="7"></a></h2><h2>9.5 Object handle classes<a name="8"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 9 Object-Oriented Programming
+z(1,2).Particle = 'neutron'
+
+%% 
+A = rand(4)
+F = factor0
+[F.L F.U] = lu(A)
+whos
+
+%% 9.1 Object methods
+%% 
+A = rand(4)
+b = rand(4,1)
+F = factor1(A)
+F\b
+A\b
+
+
+%% 9.2 Object inheritance and abstract classes
+A = rand(4) ;
+C = A' *A ; % symmetric pos. definite
+b = rand(4,1) ;
+F = factor2_lu(A) ;
+F\b
+A\b
+G = factor2_chol(C) ;
+G\b
+C\b
+
+%% 9.3 Object attributes
+
+
+%% 9.4 A more extensive example
+
+
+%% 9.5 Object handle classes
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

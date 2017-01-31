@@ -1,0 +1,324 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>18 Sparse Matrix Computations</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-15"><meta name="DC.source" content="ch18.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>18 Sparse Matrix Computations</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">18.1 Storage modes</a></li><li><a href="#4">18.2 Generating sparse matrices</a></li><li><a href="#9">18.3 Computation with sparse matrices</a></li><li><a href="#10">18.4 Permutation vectors and matrices</a></li><li><a href="#13">18.5 Visualizing matrices</a></li></ul></div><h2>18.1 Storage modes<a name="1"></a></h2><pre class="codeinput">F = randi([0 9], 6)
+F = triu(tril(F,1), -1)
+</pre><pre class="codeoutput">
+F =
+
+     0     8     4     8     3     1
+     4     8     9     5     5     2
+     1     0     1     5     4     4
+     9     3     2     1     0     0
+     0     2     1     8     2     9
+     7     8     1     6     1     9
+
+
+F =
+
+     0     8     0     0     0     0
+     4     8     9     0     0     0
+     0     0     1     5     0     0
+     0     0     2     1     0     0
+     0     0     0     8     2     9
+     0     0     0     0     1     9
+
+</pre><pre class="codeinput">S=sparse(F)
+</pre><pre class="codeoutput">
+S =
+
+   (2,1)        4
+   (1,2)        8
+   (2,2)        8
+   (2,3)        9
+   (3,3)        1
+   (4,3)        2
+   (3,4)        5
+   (4,4)        1
+   (5,4)        8
+   (5,5)        2
+   (6,5)        1
+   (5,6)        9
+   (6,6)        9
+
+</pre><pre class="codeinput">F=full(S)
+</pre><pre class="codeoutput">
+F =
+
+     0     8     0     0     0     0
+     4     8     9     0     0     0
+     0     0     1     5     0     0
+     0     0     2     1     0     0
+     0     0     0     8     2     9
+     0     0     0     0     1     9
+
+</pre><h2>18.2 Generating sparse matrices<a name="4"></a></h2><pre class="codeinput">m = 6 ;
+n = 6 ;
+e = ones(n,1) ;
+d = -2*e ;
+T = spdiags([e d e], [-1 0 1], m, n)
+full(T)
+</pre><pre class="codeoutput">
+T =
+
+   (1,1)       -2
+   (2,1)        1
+   (1,2)        1
+   (2,2)       -2
+   (3,2)        1
+   (2,3)        1
+   (3,3)       -2
+   (4,3)        1
+   (3,4)        1
+   (4,4)       -2
+   (5,4)        1
+   (4,5)        1
+   (5,5)       -2
+   (6,5)        1
+   (5,6)        1
+   (6,6)       -2
+
+
+ans =
+
+    -2     1     0     0     0     0
+     1    -2     1     0     0     0
+     0     1    -2     1     0     0
+     0     0     1    -2     1     0
+     0     0     0     1    -2     1
+     0     0     0     0     1    -2
+
+</pre><pre class="codeinput">i = [1 2 3 4 4 4] ;
+j = [1 2 3 1 2 3] ;
+s = [5 6 7 8 9 10] ;
+S = sparse(i, j, s, 4, 3)
+full(S)
+</pre><pre class="codeoutput">
+S =
+
+   (1,1)        5
+   (4,1)        8
+   (2,2)        6
+   (4,2)        9
+   (3,3)        7
+   (4,3)       10
+
+
+ans =
+
+     5     0     0
+     0     6     0
+     0     0     7
+     8     9    10
+
+</pre><pre class="codeinput">i = [1 2 3 1] ;
+j = [1 2 3 1] ;
+s = [1 1 1 1] ;
+S = sparse(i, j, s)
+full(S)
+</pre><pre class="codeoutput">
+S =
+
+   (1,1)        2
+   (2,2)        1
+   (3,3)        1
+
+
+ans =
+
+     2     0     0
+     0     1     0
+     0     0     1
+
+</pre><pre class="codeinput">n = 6 ;
+e = randi([0 9], n-1, 1) ;
+E = sparse(2:n, 1:n-1, e, n, n)
+</pre><pre class="codeoutput">
+E =
+
+   (2,1)        4
+   (3,2)        4
+   (4,3)        3
+   (5,4)        9
+   (6,5)        3
+
+</pre><pre class="codeinput">A = sparse(m,n) ;
+<span class="keyword">for</span> k = 1:length(s)
+  A(i(k),j(k)) = s(k) ;
+<span class="keyword">end</span>
+</pre><h2>18.3 Computation with sparse matrices<a name="9"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  S+S S*S S. *S S. *F
+</span><span class="comment">  S-S S/Z S\Z -S
+</span><span class="comment">  S&#8217; S.&#8217; inv(S) chol(S)
+</span><span class="comment">  lu(S) diag(S) max(S) sum(S)
+</span><span class="comment">  S*n S/n S^n S.^n
+</span><span class="comment">n\S
+</span><span class="comment">%}</span>
+</pre><h2>18.4 Permutation vectors and matrices<a name="10"></a></h2><pre class="codeinput">load <span class="string">west0479</span> ; A = west0479 ;
+[L,U,P,Q] = lu(A) ;
+[L,U,p,q] = lu(A, <span class="string">'vector'</span>) ;
+</pre><pre class="codeinput">[p j x] = find(P');    <span class="comment">% converts P*A to A(p,:)</span>
+[q j x] = find(Q);     <span class="comment">% converts A*Q to A(:,q)</span>
+P=sparse(1:m, p, 1)    <span class="comment">% converts A(p,:) to P*A</span>
+Q=sparse(q, 1:n, 1)    <span class="comment">% converts A(:,q) to A*Q</span>
+</pre><pre class="codeoutput error">Error using sparse
+Vectors must be the same lengths.
+
+Error in ch18 (line 66)
+P=sparse(1:m, p, 1)    % converts A(p,:) to P*A
+</pre><h2>18.5 Visualizing matrices<a name="13"></a></h2><pre class="codeinput">A = [
+      -1 2 3 -4
+      0 2 -1 0
+      1 2 9 1
+      -3 4 1 1]
+C = ddom(A)
+figure(1) ; spy(A ~= C)
+figure(2) ; spy(A &gt; 2)
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 18 Sparse Matrix Computations
+
+%% 18.1 Storage modes
+F = randi([0 9], 6)
+F = triu(tril(F,1), -1)
+
+%%
+S=sparse(F) 
+
+%%
+F=full(S)
+
+%% 18.2 Generating sparse matrices
+m = 6 ;
+n = 6 ;
+e = ones(n,1) ;
+d = -2*e ;
+T = spdiags([e d e], [-1 0 1], m, n)
+full(T)
+
+%% 
+i = [1 2 3 4 4 4] ;
+j = [1 2 3 1 2 3] ;
+s = [5 6 7 8 9 10] ;
+S = sparse(i, j, s, 4, 3)
+full(S)
+
+%% 
+i = [1 2 3 1] ;
+j = [1 2 3 1] ;
+s = [1 1 1 1] ;
+S = sparse(i, j, s)
+full(S)
+
+%% 
+n = 6 ;
+e = randi([0 9], n-1, 1) ;
+E = sparse(2:n, 1:n-1, e, n, n)
+
+%% 
+A = sparse(m,n) ;
+for k = 1:length(s)
+  A(i(k),j(k)) = s(k) ;
+end
+
+%% 18.3 Computation with sparse matrices
+%{
+  S+S S*S S. *S S. *F
+  S-S S/Z S\Z -S
+  S’ S.’ inv(S) chol(S)
+  lu(S) diag(S) max(S) sum(S)
+  S*n S/n S^n S.^n
+n\S
+%}
+
+
+%% 18.4 Permutation vectors and matrices
+%% 
+load west0479 ; A = west0479 ;
+[L,U,P,Q] = lu(A) ;
+[L,U,p,q] = lu(A, 'vector') ;
+
+%% 
+[p j x] = find(P');    % converts P*A to A(p,:)
+[q j x] = find(Q);     % converts A*Q to A(:,q)
+P=sparse(1:m, p, 1)    % converts A(p,:) to P*A
+Q=sparse(q, 1:n, 1)    % converts A(:,q) to A*Q
+
+%% 18.5 Visualizing matrices
+A = [
+      -1 2 3 -4
+      0 2 -1 0
+      1 2 9 1
+      -3 4 1 1]
+C = ddom(A)
+figure(1) ; spy(A ~= C)
+figure(2) ; spy(A > 2)
+
+
+##### SOURCE END #####
+--></body></html>

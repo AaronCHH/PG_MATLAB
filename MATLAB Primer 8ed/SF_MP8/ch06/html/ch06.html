@@ -1,0 +1,184 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>6 M-Files</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-14"><meta name="DC.source" content="ch06.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>6 M-Files</h1><!--introduction--><pre class="codeoutput error">Error using dbstatus
+Error: File: D:\BOOKS\MATLAB\_REF\MATLAB Primer 8ed\SF_MP8\ch06\ch06.m Line: 38 Column: 28
+Unexpected MATLAB operator.
+</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">6.1 M-File Editor window</a></li><li><a href="#2">6.2 Script files</a></li><li><a href="#12">6.3 Function files</a></li><li><a href="#15">6.4 Multiple inputs and outputs</a></li><li><a href="#16">6.5 Variable arguments</a></li><li><a href="#17">6.6 Unused arguments</a></li><li><a href="#18">6.7 Comments and documentation</a></li><li><a href="#19">6.8 The MATLAB path</a></li></ul></div><h2>6.1 M-File Editor window<a name="1"></a></h2><pre class="codeinput">f = sum(A, 2) ;
+A = A + diag(f) ;
+</pre><h2>6.2 Script files<a name="2"></a></h2><pre class="codeinput">A = rand(3)
+ddom
+A
+</pre><pre class="codeinput">A = [1 -2 ; -1 1]
+ddom
+A
+</pre><pre class="codeinput">f = sum(abs(A), 2) ;
+</pre><pre class="codeinput">d = diag(A) ;
+a = abs(d) ;
+f = sum(abs(A), 2) - a ;
+i = find(f &gt;= a) ;
+A(i,i) = A(i,i) + diag(f(i))
+</pre><pre class="codeinput">clear
+A = [-1 2 ; 1 -1]
+ddom
+</pre><pre class="codeinput">A = A - diag(f)
+</pre><pre class="codeinput">s = sign(d(i)) ;
+</pre><pre class="codeinput">A(i,i) = A(i,i) + diag(s . * f(i)) ;
+</pre><pre class="codeinput">d = diag(A) ;
+a = abs(d) ;
+f = sum(abs(A), 2) - a ;
+i = find(f &gt;= a) ;
+[m n] = size(A) ;
+k = i + (i-1) *m ;
+tol = 100 * eps ;
+s = 2 * (d(i) &gt;= 0) - 1 ;
+A(k) = (1+tol) * s .* max(f(i), tol)
+</pre><h2>6.3 Function files<a name="12"></a></h2><pre class="codeinput">B = A
+</pre><pre class="codeinput">C = [1 -2 ; -1 1]
+D = ddom(C)
+</pre><h2>6.4 Multiple inputs and outputs<a name="15"></a></h2><h2>6.5 Variable arguments<a name="16"></a></h2><h2>6.6 Unused arguments<a name="17"></a></h2><p>Not all output arguments of a function are needed every time the function is used. To ignore arguments that appear at the end of the list of outputs, simply remove them from the list. For example, with your new 2-output ddom function, D=ddom(C) returns only the first argument. The second output i is ignored. To ignore an argument, use a tilde (~) in its place. For example, to obtain just the indices of the diagonal entries that ddom would modify, use [~,i]=ddom(C) . Try it.</p><h2>6.7 Comments and documentation<a name="18"></a></h2><h2>6.8 The MATLAB path<a name="19"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 6 M-Files
+
+%% 6.1 M-File Editor window
+f = sum(A, 2) ;
+A = A + diag(f) ;
+
+%% 6.2 Script files
+%% 
+A = rand(3)
+ddom
+A
+
+%% 
+A = [1 -2 ; -1 1]
+ddom
+A
+
+%% 
+f = sum(abs(A), 2) ;
+
+%% 
+d = diag(A) ;
+a = abs(d) ;
+f = sum(abs(A), 2) - a ;
+i = find(f >= a) ;
+A(i,i) = A(i,i) + diag(f(i))
+
+%% 
+clear
+A = [-1 2 ; 1 -1]
+ddom
+
+%% 
+A = A - diag(f)
+
+%% 
+s = sign(d(i)) ;
+A(i,i) = A(i,i) + diag(s . * f(i)) ;
+
+%% 
+d = diag(A) ;
+a = abs(d) ;
+f = sum(abs(A), 2) - a ;
+i = find(f >= a) ;
+[m n] = size(A) ;
+k = i + (i-1) *m ;
+tol = 100 * eps ;
+s = 2 * (d(i) >= 0) - 1 ;
+A(k) = (1+tol) * s .* max(f(i), tol)
+
+%% 6.3 Function files
+%% 
+B = A
+
+%% 
+C = [1 -2 ; -1 1]
+D = ddom(C)
+
+
+%% 6.4 Multiple inputs and outputs
+
+%% 6.5 Variable arguments
+
+%% 6.6 Unused arguments
+% Not all output arguments of a function are needed every
+% time the function is used. To ignore arguments that appear
+% at the end of the list of outputs, simply remove them from
+% the list. For example, with your new 2-output ddom
+% function, D=ddom(C) returns only the first argument. The
+% second output i is ignored.
+% To ignore an argument, use a tilde (~) in its place. For
+% example, to obtain just the indices of the diagonal entries
+% that ddom would modify, use [~,i]=ddom(C) . Try it.
+
+%% 6.7 Comments and documentation
+
+%% 6.8 The MATLAB path
+##### SOURCE END #####
+--></body></html>

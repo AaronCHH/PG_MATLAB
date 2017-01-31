@@ -1,0 +1,423 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>10 Advanced M-file Features</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-14"><meta name="DC.source" content="ch10.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>10 Advanced M-file Features</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">10.1 Function handles and anonymous functions</a></li><li><a href="#9">10.2 Name resolution</a></li><li><a href="#10">10.3 Error and warning messages</a></li><li><a href="#11">10.4 User input</a></li><li><a href="#14">10.5 Performance measures</a></li><li><a href="#17">10.6 Efficient code</a></li></ul></div><h2>10.1 Function handles and anonymous functions<a name="1"></a></h2><pre class="codeinput">f = @sqrt
+f(2)
+sqrt(2)
+</pre><pre class="codeoutput">
+f = 
+
+    @sqrt
+
+
+ans =
+
+    1.4142
+
+
+ans =
+
+    1.4142
+
+</pre><pre class="codeinput">f = str2func(<span class="string">'sqrt'</span>)
+f(2)
+</pre><pre class="codeoutput">
+f = 
+
+    @sqrt
+
+
+ans =
+
+    1.4142
+
+</pre><pre class="codeinput">g = @(x) x^2-5*x+6-sin(9*x)
+g(1)
+</pre><pre class="codeoutput">
+g = 
+
+    @(x)x^2-5*x+6-sin(9*x)
+
+
+ans =
+
+    1.5879
+
+</pre><pre class="codeinput">g = @(x) x.^2-5*x+6-sin(9*x)
+g([0 1])
+</pre><pre class="codeoutput">
+g = 
+
+    @(x)x.^2-5*x+6-sin(9*x)
+
+
+ans =
+
+    6.0000    1.5879
+
+</pre><pre class="codeinput">norm2 = @(x,y) sqrt(x^2 + y^2)
+norm2(4, 5)
+norm([4 5])
+</pre><pre class="codeoutput">
+norm2 = 
+
+    @(x,y)sqrt(x^2+y^2)
+
+
+ans =
+
+    6.4031
+
+
+ans =
+
+    6.4031
+
+</pre><pre class="codeinput">A = [3 2 ; 1 3]
+b = [3 ; 4]
+y = A\b
+resid = @(x) A*x-b
+resid(y)
+A*y-b
+
+<span class="comment">%{
+</span><span class="comment">  func2str(f)
+</span><span class="comment">  func2str(g)
+</span><span class="comment">  func2str(norm2)
+</span><span class="comment">  func2str(resid)
+</span><span class="comment">  functions(f)
+</span><span class="comment">%}
+</span>
+h{1} = f
+h{2} = g
+h{1}(2)
+f(2)
+h{2}(1)
+g(1)
+</pre><pre class="codeoutput">
+A =
+
+     3     2
+     1     3
+
+
+b =
+
+     3
+     4
+
+
+y =
+
+    0.1429
+    1.2857
+
+
+resid = 
+
+    @(x)A*x-b
+
+
+ans =
+
+   1.0e-15 *
+
+         0
+   -0.4441
+
+
+ans =
+
+   1.0e-15 *
+
+         0
+   -0.4441
+
+
+h = 
+
+    @sqrt
+
+
+h = 
+
+    @sqrt    @(x)x.^2-5*x+6-sin(9*x)
+
+
+ans =
+
+    1.4142
+
+
+ans =
+
+    1.4142
+
+
+ans =
+
+    1.5879
+
+
+ans =
+
+    1.5879
+
+</pre><pre class="codeinput">bisect(@sin, [3 4])
+bisect(<span class="string">'sin'</span>, [3 4])
+bisect(g, [0 3])
+g(ans)
+</pre><pre class="codeoutput">
+ans =
+
+    3.1416
+
+
+ans =
+
+    3.1416
+
+
+ans =
+
+    1.4929
+
+
+ans =
+
+  -1.1102e-16
+
+</pre><h2>10.2 Name resolution<a name="9"></a></h2><pre class="codeinput">clear
+which <span class="string">i</span>
+i = 3
+which <span class="string">i</span>
+which <span class="string">i</span> <span class="string">-all</span>
+</pre><pre class="codeoutput">built-in (C:\Program Files\MATLAB\R2015b\toolbox\matlab\elmat\i)
+
+i =
+
+     3
+
+i is a variable.
+i is a variable.
+built-in (C:\Program Files\MATLAB\R2015b\toolbox\matlab\elmat\i)  % Shadowed
+</pre><h2>10.3 Error and warning messages<a name="10"></a></h2><pre class="codeinput">A = rand(4,3)
+[m n] = size(A) ;
+<span class="keyword">if</span> m ~= n
+  error(<span class="string">'A must be square'</span>) ;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+A =
+
+    0.0117    0.2242    0.0157
+    0.5741    0.5160    0.3939
+    0.1867    0.5391    0.0143
+    0.1984    0.6943    0.1148
+
+</pre><pre class="codeoutput error">Error using ch10 (line 66)
+A must be square
+</pre><h2>10.4 User input<a name="11"></a></h2><pre class="codeinput">iter = input(<span class="string">'iteration count: '</span>);
+</pre><pre class="codeinput">disp(<span class="string">'Hit enter to continue: '</span>);
+pause
+</pre><h2>10.5 Performance measures<a name="14"></a></h2><pre class="codeinput">n = 1000 ;
+A = rand(n) ;
+b = rand(n,1) ;
+tic ; x = A\b ; t = toc
+r = norm(A*x-b)
+(2/3) *n^3 / t
+</pre><pre class="codeinput">m = 4000 ; n = 1000 ;
+A = rand (m,n) ;
+[v,beta,s] = gallery(<span class="string">'house'</span>,A(:,1)) ;
+tic ; C = A - v*(beta*(v' *A)) ; toc
+tic ; C = A - beta*(v*(v' *A)) ; toc
+tic ; C = A - beta*v*v' *A ; toc
+tic ; C = A - beta*(v*v') *A ; toc
+tic ; H = eye(m)-beta*v*v' ; C=H*A ; toc
+</pre><h2>10.6 Efficient code<a name="17"></a></h2><pre class="codeinput">A = rand(1000) ;
+tic ; B = ddom(A) ; toc
+tic ; B = ddomloops(A) ; toc
+</pre><pre class="codeinput">M = magic(6) ;
+E = zeros(6,50) ;
+<span class="keyword">for</span> j = 1:50
+  E(:,j) = eig(M^j);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 10 Advanced M-file Features
+
+%% 10.1 Function handles and anonymous functions
+%% 
+f = @sqrt
+f(2)
+sqrt(2)
+
+%% 
+f = str2func('sqrt')
+f(2)
+
+%% 
+g = @(x) x^2-5*x+6-sin(9*x)
+g(1)
+
+%% 
+g = @(x) x.^2-5*x+6-sin(9*x)
+g([0 1])
+
+%% 
+norm2 = @(x,y) sqrt(x^2 + y^2)
+norm2(4, 5)
+norm([4 5])
+
+%% 
+A = [3 2 ; 1 3]
+b = [3 ; 4]
+y = A\b
+resid = @(x) A*x-b
+resid(y)
+A*y-b
+
+%{
+  func2str(f)
+  func2str(g)
+  func2str(norm2)
+  func2str(resid)
+  functions(f)
+%}
+
+h{1} = f
+h{2} = g
+h{1}(2)
+f(2)
+h{2}(1)
+g(1)
+
+%% 
+bisect(@sin, [3 4])
+bisect('sin', [3 4])
+bisect(g, [0 3])
+g(ans)
+
+%% 10.2 Name resolution
+clear
+which i
+i = 3
+which i
+which i -all
+
+%% 10.3 Error and warning messages
+A = rand(4,3)
+[m n] = size(A) ;
+if m ~= n
+  error('A must be square') ;
+end
+
+
+%% 10.4 User input
+%% 
+iter = input('iteration count: ');
+
+%% 
+disp('Hit enter to continue: ');
+pause
+
+%% 10.5 Performance measures
+%% 
+n = 1000 ;
+A = rand(n) ;
+b = rand(n,1) ;
+tic ; x = A\b ; t = toc
+r = norm(A*x-b)
+(2/3) *n^3 / t
+
+
+%% 
+m = 4000 ; n = 1000 ;
+A = rand (m,n) ;
+[v,beta,s] = gallery('house',A(:,1)) ;
+tic ; C = A - v*(beta*(v' *A)) ; toc
+tic ; C = A - beta*(v*(v' *A)) ; toc
+tic ; C = A - beta*v*v' *A ; toc
+tic ; C = A - beta*(v*v') *A ; toc
+tic ; H = eye(m)-beta*v*v' ; C=H*A ; toc
+
+
+%% 10.6 Efficient code
+%% 
+A = rand(1000) ;
+tic ; B = ddom(A) ; toc
+tic ; B = ddomloops(A) ; toc
+
+%% 
+M = magic(6) ;
+E = zeros(6,50) ;
+for j = 1:50
+  E(:,j) = eig(M^j);
+end
+
+##### SOURCE END #####
+--></body></html>

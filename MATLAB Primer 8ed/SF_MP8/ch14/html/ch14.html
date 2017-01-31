@@ -1,0 +1,1114 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>14 Calling Java from MATLAB</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-15"><meta name="DC.source" content="ch14.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>14 Calling Java from MATLAB</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">14.1 A simple example</a></li><li><a href="#2">14.2 Encryption/decryption</a></li><li><a href="#3">14.3 Java class path</a></li><li><a href="#4">14.4 Calling your own Java methods</a></li><li><a href="#8">14.5 Loading a URL as a matrix</a></li></ul></div><h2>14.1 A simple example<a name="1"></a></h2><h2>14.2 Encryption/decryption<a name="2"></a></h2><h2>14.3 Java class path<a name="3"></a></h2><h2>14.4 Calling your own Java methods<a name="4"></a></h2><pre class="codeinput">s = urlread(<span class="string">'http://www.mathworks.com'</span>)
+</pre><pre class="codeoutput">
+s =
+
+&#65279;
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;MathWorks &#8211; Makers of MATLAB and Simulink&lt;/title&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+&lt;!-- BEGIN Adobe DTM --&gt;
+&lt;script src="/scripts/dtm/d0cc0600946eb3957f703b9fe43c3590597a8c2c/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js"&gt;&lt;/script&gt;
+&lt;!-- END Adobe DTM --&gt;
+&lt;link href="/includes_content/responsive/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"&gt;
+&lt;link href="/includes_content/responsive/css/site6.css?201507" rel="stylesheet" type="text/css"&gt;
+&lt;link href="/includes_content/responsive/css/site6_lg.css" rel="stylesheet" media="screen and (min-width: 1200px)"&gt;
+&lt;link href="/includes_content/responsive/css/site6_md.css" rel="stylesheet" media="screen and (min-width: 992px) and (max-width: 1199px)"&gt;
+&lt;link href="/includes_content/responsive/css/site6_sm+xs.css" rel="stylesheet" media="screen and (max-width: 991px)"&gt;
+&lt;link href="/includes_content/responsive/css/site6_sm.css" rel="stylesheet" media="screen and (min-width: 768px) and (max-width: 991px)"&gt;
+&lt;link href="/includes_content/responsive/css/site6_xs.css" rel="stylesheet" media="screen and (max-width: 767px)"&gt;
+&lt;!--[if IE 8]&gt;
+&lt;link href="/includes_content/responsive/css/site6_ie8.css" rel="stylesheet" type="text/css"&gt;
+&lt;script src="/includes_content/responsive/scripts/bootstrap/html5shiv-printshiv.js"&gt;&lt;/script&gt;
+&lt;script src="/includes_content/responsive/scripts/bootstrap/respond.min.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+&lt;!--[if IE 9]&gt;
+&lt;link href="/includes_content/responsive/css/site6_ie9.css" rel="stylesheet" type="text/css"&gt;
+&lt;![endif]--&gt;
+&lt;link href="/includes_content/responsive/css/site6_print.css" rel="stylesheet" type="text/css" media="print"&gt;
+&lt;script src="/includes_content/responsive/scripts/jquery/jquery-latest.js"&gt;&lt;/script&gt;
+&lt;script src="/includes_content/responsive/scripts/jquery/jquery.mobile.custom.min.js"&gt;&lt;/script&gt;
+&lt;script src="/includes_content/responsive/scripts/bootstrap/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/includes_content/responsive/scripts/bootstrap/responsive-tabs.js"&gt;&lt;/script&gt;
+&lt;script src="/includes_content/responsive/scripts/global.js"&gt;&lt;/script&gt;
+&lt;script src="/includes_content/responsive/scripts/anchor.js"&gt;&lt;/script&gt;
+&lt;script src="https://fonts.mathworks.com/xvy5baa.js"&gt;&lt;/script&gt;
+&lt;script&gt;try{Typekit.load();}catch(e){}&lt;/script&gt;
+&lt;link rel="alternate" href="http://www.mathworks.com" hreflang="x-default" /&gt;
+&lt;link rel="alternate" href="http://ch.mathworks.com" hreflang="de-ch" /&gt;
+&lt;link rel="alternate" href="http://cn.mathworks.com" hreflang="zh" /&gt;
+&lt;link rel="alternate" href="http://jp.mathworks.com" hreflang="ja" /&gt;
+&lt;link rel="alternate" href="http://kr.mathworks.com" hreflang="ko" /&gt;
+&lt;link rel="alternate" href="http://uk.mathworks.com" hreflang="en-uk" /&gt;
+&lt;link rel="alternate" href="http://au.mathworks.com" hreflang="en-au" /&gt;
+&lt;link rel="alternate" href="http://de.mathworks.com" hreflang="de" /&gt;
+&lt;link rel="alternate" href="http://es.mathworks.com" hreflang="es" /&gt;
+&lt;link rel="alternate" href="http://fr.mathworks.com" hreflang="fr" /&gt;
+&lt;link rel="alternate" href="http://in.mathworks.com" hreflang="en-in" /&gt;
+&lt;link rel="alternate" href="http://it.mathworks.com" hreflang="it" /&gt;
+&lt;link rel="alternate" href="http://nl.mathworks.com" hreflang="en-nl" /&gt;
+&lt;link rel="alternate" href="http://se.mathworks.com" hreflang="en-se" /&gt;
+&lt;meta name="verify-v1" content="iwLARg7iIKjOmXDsHcA+MWHdDzYllrPapFjGetD1DMI=" &gt;
+&lt;meta name="description" content="MathWorks develops, sells, and supports MATLAB and Simulink products."&gt;
+&lt;meta name="keywords" content="mathworks,matlab,mathlab,simulink,stateflow,compiler,control systems,image processing,signal processing,simulation"&gt;
+&lt;link href="https://plus.google.com/117177960465154322866" rel="publisher" /&gt;
+&lt;script type="application/ld+json"&gt;
+{ "@context" : "http://schema.org",
+"@type" : "Organization",
+"name" : "MathWorks",
+"url" : "http://www.mathworks.com",
+"sameAs" : [
+"https://www.facebook.com/MATLAB",
+"https://twitter.com/MATLAB",
+"https://plus.google.com/+matlab/",
+"https://www.linkedin.com/company/the-mathworks_2",
+"https://www.youtube.com/user/MATLAB",
+"https://en.wikipedia.org/wiki/MathWorks" ]
+}
+&lt;/script&gt;
+&lt;style&gt;
+.panel.add_panel_image_left { background-position: left center; }
+&lt;/style&gt;
+&lt;!-- CUSTOM CSS --&gt;
+&lt;style&gt;
+.callout_container #release_video { padding:20px 109px 20px 15px;}
+.callout_container #release_video h3 { margin:0px 0px 15px 0px;}
+.callout_container #release_video img { padding:0px 0px 7px 0px; }
+.callout_container #release_video_fixed { padding:36px 108px 20px 0px;}
+.callout_container #release_video_fixed h3 { margin:0px 0px 18px 0px; line-height:140%; }
+.callout_container #release_video_fixed img { padding:0px 0px 5px 0px; } .callout_container #try_matlab_other_products { padding:41px 90px 20px 0px;}
+.callout_container #try_matlab_other_products h3 { margin:0px 0px 85px 0px; line-height:140%; }
+&lt;/style&gt;
+&lt;script type="text/javascript" src="/includes_content/nextgen/scripts/jquery/jquery.cookie.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+(function() {
+// Check if cookies are enabled
+function cookiesEnabled() {
+return $.cookie('check', 'valid', { expires: 1 }) &amp;&amp; $.cookie('check') == 'valid';
+}
+// Set the language of the domain and redirect to the domain
+function setDomainLanguage(language) {
+if($.cookie("lang") != null) {
+$.removeCookie("lang");
+}
+$.cookie("lang", 'lang=' + language, {path: '/', expires: 365, domain: 'ch.mathworks.com'});
+}
+// do not display the domain selector if querystring is not present
+// or if query string has nocookie value
+// or if cookies are disabled
+var displayDomainSelector = true;
+function detectDomain() {
+var queries = {};
+$.each(document.location.search.substr(1).split('&amp;'), function(c,q){
+if(q != undefined &amp;&amp; q != "") {
+var i = q.split('=');
+if(i[1] != undefined) {
+queries[i[0].toString()] = i[1].toString();
+}
+}
+});
+var requested_domain = (queries['requestedDomain'] != undefined) ? queries['requestedDomain'] : "";
+var nocookie = (queries['nocookie'] != undefined) ? queries['nocookie'] : "";
+var client = (queries['client'] != undefined) ? queries['client'] : "";
+if(requested_domain == "" || nocookie == "true" || !cookiesEnabled() || client == "addons" || window.overrideDomainSelector) {
+displayDomainSelector = false;
+}
+}
+detectDomain();
+function extractDomain(url) {
+var domain;
+//find &amp; remove protocol (http, ftp, etc.) and get domain
+if (url.indexOf("://") &gt; -1) {
+domain = url.split('/')[2];
+} else {
+domain = url.split('/')[0];
+}
+//find &amp; remove port number
+domain = domain.split(':')[0];
+return domain;
+}
+function getDomainContent(returnContent) {
+// Get the location information from the marketing site
+$.ajax({
+url : "/includes_content/domainSelect/location.html",
+type : "get",
+async: false,
+success : function(data) {
+$("#location_content").html(data);
+var button_link = $("#button_link").text();
+var current_location = $("#current_location").text();
+var location_key = $("#location_key").text();
+//Set the location in the text and button
+$(".text_location").text(current_location);
+$("#domain_select_button").text("Select " + current_location);
+// if the current location is different from the browser location, update the button functionality
+var browser_domain = extractDomain(window.location.href);
+if(button_link.indexOf(browser_domain) == -1) {
+// Get the current page link from the links within the selector
+new_button_link = $("." + location_key).attr("href");
+$("#domain_select_button").attr("href",new_button_link);
+$("#domain_select_button").removeAttr("data-dismiss");
+}
+}
+});
+if(returnContent) {
+return $('#country-unselected').html();
+}
+}
+$(document).ready(function () {
+//setLocation();
+// determine if links need to be rewritten
+if ( $( "#country-unselected li a" ).length ) {
+$("#country-unselected li a").each(function() {
+var link_url = $(this).attr("href").replace(/%26requestedDomain(%3D[^%26|&amp;]*)?|requestedDomain(%3D[^%26|&amp;]*)?(%26)?/, "");
+$(this).attr("href", link_url);
+});
+}
+if ( $( "li.headernav_login &gt; a" ).length ) {
+var login_url = $("li.headernav_login &gt; a").attr("href").replace(/%26requestedDomain(%3D[^%26|&amp;]*)?|requestedDomain(%3D[^%26|&amp;]*)?(%26)?/, "");
+$("li.headernav_login &gt; a").attr("href", login_url);
+}
+if ( $( "li.mwa-nav_logout &gt; a" ).length ) {
+var login_url = $("li.mwa-nav_logout &gt; a").attr("href").replace(/%26requestedDomain(%3D[^%26|&amp;]*)?|requestedDomain(%3D[^%26|&amp;]*)?(%26)?/, "");
+$("li.mwa-nav_logout &gt; a").attr("href", login_url);
+}
+if ( $( ".mwa-nav li a" ).length ) {
+$(".mwa-nav li a").each(function() {
+var link_url = $(this).attr("href").replace(/%26requestedDomain(%3D[^%26|&amp;]*)?|requestedDomain(%3D[^%26|&amp;]*)?(%26)?/, "");
+$(this).attr("href", link_url);
+});
+}
+$('body').on('click','.footernav_country a',function(){
+getDomainContent(false);
+});
+// set the click function for Switzerland/French link
+$('body').on('click','#swiss_french',function(){
+setDomainLanguage('fr');
+});
+// set the click function for the Switzerland/German link
+$('body').on('click','#swiss_german',function(){
+setDomainLanguage('de');
+});
+});
+// onload functionality for the selector
+$(document).ready(function () {
+if(displayDomainSelector) {
+getDomainContent(false);
+$('#country-unselected').modal('show');
+}
+});
+})(jQuery);
+&lt;/script&gt;
+&lt;/head&gt;
+  
+&lt;body id="responsive_b"&gt;
+
+  &lt;!-- Mobile TopNav: Start --&gt;
+&lt;div class="header visible-xs visible-sm" id="header_mobile"&gt;
+&lt;nav class="navbar navbar-default" role="navigation"&gt;
+&lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12"&gt;
+&lt;div class="navbar-header"&gt;
+&lt;button type="button" class="navbar-toggle topnav_toggle" data-toggle="collapse" data-target="#topnav_collapse"&gt;
+&lt;span class="sr-only"&gt;Toggle Main Navigation&lt;/span&gt;
+&lt;span class="icon-menu"&gt;&lt;/span&gt;
+&lt;/button&gt;
+&lt;a href="http://www.mathworks.com/index.html?s_tid=gn_logo" class="svg_link navbar-brand"&gt;
+&lt;img src="/images/responsive/global/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks"&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row visible-xs visible-sm"&gt;
+&lt;div class="col-xs-12"&gt;
+&lt;div class="navbar-collapse collapse" id="topnav_collapse"&gt;
+&lt;ul class="nav navbar-nav" id="topnav"&gt;
+&lt;li class="headernav_login"&gt;
+&lt;a href="https://www.mathworks.com/login?uri=/mwaccount/%3Fnocookie%3Dtrue" class="mwa-nav_login"&gt;Log In&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class="topnav_products "&gt;&lt;a href="http://www.mathworks.com/products/?s_tid=gn_ps" &gt;Products&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_solutions "&gt;&lt;a href="http://www.mathworks.com/solutions/?s_tid=gn_sol"&gt;Solutions&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_academia "&gt;&lt;a href="http://www.mathworks.com/academia/?s_tid=gn_acad"&gt;Academia&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_support "&gt;&lt;a href="http://www.mathworks.com/support/?s_tid=gn_supp"&gt;Support&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_community "&gt;&lt;a href="http://www.mathworks.com/matlabcentral/?s_tid=gn_mlc"&gt;Community&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_events "&gt;&lt;a href="http://www.mathworks.com/company/events/?s_tid=gn_ev"&gt;Events&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_company "&gt;&lt;a href="http://www.mathworks.com/company/?s_tid=gn_co"&gt;Company&lt;/a&gt;&lt;/li&gt;
+&lt;li class="headernav_contact"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/contact_us/?s_tid=gn_cntus"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+&lt;li class="headernav_store"&gt;&lt;a href="http://www.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store"&gt;How To Buy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/nav&gt;
+&lt;/div&gt;
+&lt;!-- Mobile TopNav: End --&gt;
+&lt;!-- Desktop TopNav: Start --&gt;
+&lt;div class="header hidden-xs hidden-sm" id="header_desktop"&gt;
+&lt;nav class="navbar navbar-default" role="navigation"&gt;
+&lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12"&gt;
+&lt;div class="collapse navbar-collapse" id="headernav_collapse"&gt;
+&lt;ul class="nav navbar-nav navbar-right" id="headernav"&gt;
+&lt;li class="headernav_contact"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/contact_us/?s_tid=gn_cntus"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+&lt;li class="headernav_store"&gt;&lt;a href="http://www.mathworks.com/store?s_cid=store_top_nav&amp;s_tid=gn_store"&gt;How To Buy&lt;/a&gt;&lt;/li&gt;
+&lt;li class="headernav_login"&gt;
+&lt;a href="https://www.mathworks.com/login?uri=/mwaccount/%3Fnocookie%3Dtrue" class="mwa-nav_login"&gt;Log In&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12"&gt;
+&lt;div class="navbar-header"&gt;
+&lt;div class="logo_container hidden-xs hidden-sm"&gt;
+&lt;a href="http://www.mathworks.com/index.html?s_tid=gn_logo" class="svg_link pull-left"&gt;
+&lt;img src="/images/responsive/global/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks"&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="navbar-collapse collapse hidden-xs hidden-sm"&gt;
+&lt;ul class="nav navbar-nav" id="topnav"&gt;
+&lt;li class="topnav_products "&gt;&lt;a href="http://www.mathworks.com/products/?s_tid=gn_ps" &gt;Products&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_solutions "&gt;&lt;a href="http://www.mathworks.com/solutions/?s_tid=gn_sol"&gt;Solutions&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_academia "&gt;&lt;a href="http://www.mathworks.com/academia/?s_tid=gn_acad"&gt;Academia&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_support "&gt;&lt;a href="http://www.mathworks.com/support/?s_tid=gn_supp"&gt;Support&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_community "&gt;&lt;a href="http://www.mathworks.com/matlabcentral/?s_tid=gn_mlc"&gt;Community&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_events "&gt;&lt;a href="http://www.mathworks.com/company/events/?s_tid=gn_ev"&gt;Events&lt;/a&gt;&lt;/li&gt;
+&lt;li class="topnav_company "&gt;&lt;a href="http://www.mathworks.com/company/?s_tid=gn_co"&gt;Company&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/nav&gt;
+&lt;/div&gt;
+&lt;!-- Desktop TopNav: End --&gt;
+&lt;!-- Conjoined Header: Start --&gt;
+&lt;div class="sticky_header_container "&gt;
+&lt;!-- Section Header: Start --&gt;
+&lt;div class="section_header level_3"&gt;
+&lt;div class="container"&gt;
+&lt;div class="row" id="mobile_search_row"&gt;
+&lt;div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-5 col-md-push-7" id="mobile_search"&gt;
+&lt;div class="search_nested_content_container"&gt;
+&lt;form name="search" id="site_search" class="site_search" action="/search/site_search.html" method="get"&gt;
+&lt;div class="input-group"&gt;
+&lt;label class="sr-only"&gt;Search MathWorks.com&lt;/label&gt;
+&lt;input type="hidden" name="c[]" value="entire_site"&gt;
+&lt;input type="text" name="q" id="query" class="form-control conjoined_search" placeholder="Search MathWorks.com" autocomplete="off"&gt;
+&lt;div class="input-group-btn"&gt;
+&lt;button type="submit" id="searchbutton" class="btn icon-search btn_search_adjacent btn_search icon_16" tabindex="-1"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;button class="btn icon-remove btn_search pull-right icon_32 visible-xs" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="col-sm-6 col-sm-pull-6 col-md-7 col-md-pull-5" id="section_header_title"&gt;
+&lt;div class="section_header_content"&gt;
+&lt;div class="section_header_title"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="visible-xs" id="search_actuator"&gt;
+&lt;button class="btn icon-search btn_search pull-right icon_16" data-toggle="collapse" href="#mobile_search" aria-expanded="false" aria-controls="mobile_search"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Section Header: End --&gt;
+&lt;!-- Mobile Local Nav: Start --&gt;
+&lt;!-- Mobile Local Nav: End --&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Horo Nav: Start --&gt;
+&lt;!-- Horo Nav: End --&gt;
+&lt;/div&gt;
+&lt;!-- Conjoined Header: End --&gt;
+    
+    &lt;!-- FULL BANNER - Begin --&gt;
+    &lt;div class="full_banner_container"&gt;
+              &lt;div class="full_banner "&gt;
+                          
+            
+    
+    
+&lt;div id="homepage_features" class="carousel slide add_margin_0" data-ride="carousel" data-interval="false"&gt;
+&lt;a class="left carousel-control" href="#homepage_features" data-slide="prev"&gt;
+&lt;span class="icon-arrow-open-left icon_48"&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;a class="right carousel-control" href="#homepage_features" data-slide="next"&gt;
+&lt;span class="icon-arrow-open-right icon_48"&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;div class="carousel-inner"&gt;
+&lt;div class="item" style="background-image:url(/images/responsive/features/hp-SDRwireless1.jpg);"&gt;&lt;img src="/images/responsive/features/hp-SDRwireless1.jpg" class="visible-xs"&gt;&lt;div class="carousel-caption add_font_color_null"&gt; &lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-9"&gt;
+&lt;h1&gt;MATLAB Speaks SDR&lt;/h1&gt;
+&lt;h2&gt;Test wireless designs over the air&lt;/h2&gt;
+&lt;a href="/discovery/sdr.html?s_tid=hp_mi_SDR_0316" class="btn btn_emphasize add_margin_30 add_margin_10_xs"&gt;Learn more&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;div class="item" style="background-image:url(/images/responsive/features/hp-liveeditor3.jpg);"&gt;&lt;img src="/images/responsive/features/hp-liveeditor3.jpg" class="visible-xs"&gt;&lt;div class="carousel-caption add_font_color_null"&gt; &lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-7"&gt;
+&lt;h1&gt;Change the Way You Work in MATLAB&lt;/h1&gt;
+&lt;h2&gt;Accelerate exploratory programming. Create shareable interactive documents.&lt;/h2&gt;
+&lt;a href="/products/matlab/live-editor/?s_tid=hp_mi_live-editor_0316" class="btn btn_emphasize add_margin_30 add_margin_10_xs"&gt;Discover the Live Editor&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;div class="item" style="background-image:url(/images/responsive/features/hp-matlab-speaks-data.jpg);"&gt;&lt;img src="/images/responsive/features/hp-matlab-speaks-data.jpg" class="visible-xs"&gt;&lt;div class="carousel-caption add_font_color_null"&gt; &lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-9"&gt;
+&lt;h1&gt;MATLAB Speaks Big Data&lt;/h1&gt;
+&lt;h2&gt;Be your own data scientist &#8211; use MATLAB with Hadoop and MapReduce&lt;/h2&gt;
+&lt;a href="/solutions/data-analytics/?s_tid=hp_mi_bigdata_1215" class="btn btn_emphasize add_margin_30 add_margin_10_xs"&gt;Learn more&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;div class="item active" style="background-image:url(/images/responsive/features/hp-matlab-speaks-hardware.jpg);"&gt;&lt;img src="/images/responsive/features/hp-matlab-speaks-hardware.jpg" class="visible-xs"&gt;&lt;div class="carousel-caption add_font_color_null"&gt; &lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-9"&gt;
+&lt;h1&gt;MATLAB Speaks Hardware&lt;/h1&gt;
+&lt;h2&gt;Use Arduino, Raspberry Pi, and LEGO MINDSTORMS without writing code&lt;/h2&gt;
+&lt;a href="/programs/hardware-mathworks-subdomain/?s_tid=hp_mi_hardware_1115" class="btn btn_emphasize add_margin_30 add_margin_10_xs"&gt;Download support packages&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;div class="item" style="background-image:url(/images/responsive/features/hp-autosolver1.jpg);"&gt;&lt;img src="/images/responsive/features/hp-autosolver1.jpg" class="visible-xs"&gt;&lt;div class="carousel-caption add_font_color_null"&gt; &lt;div class="container"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-9"&gt;
+&lt;h1&gt;Accelerate Model Setup and Simulation in Simulink&lt;/h1&gt;
+&lt;h2&gt;Use the new automatic solver option and start page&lt;/h2&gt;
+&lt;a href="/products/simulink/whatsnew.html?s_tid=hp_mi_automatic_solver_0316" class="btn btn_emphasize add_margin_30 add_margin_10_xs"&gt;Learn more&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;    &lt;!-- End - Feature Banner --&gt;
+
+
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+    &lt;!-- FULL BANNER - End --&gt;
+
+    
+
+  &lt;div class="content_container"&gt;
+    &lt;div class="container"&gt;        
+      &lt;div class="row"&gt;
+        &lt;div class="col-xs-12"&gt;
+              
+  &lt;div class="row"&gt;
+    &lt;div class="col-xs-12"&gt;
+      &lt;div class="mboxDefault"&gt;&lt;/div&gt;
+      &lt;script language="javascript1.2"&gt;
+        mboxCreate('pers_ban_hp-pk');
+      &lt;/script&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+    &lt;div class="row"&gt;
+      &lt;div class="col-xs-12"&gt;
+&lt;div class="tab-container add_margin_20"&gt;
+&lt;ul role="tablist" class="nav nav-tabs responsive " id="hp_tabs"&gt;
+&lt;li class="active"&gt; &lt;a role="tab" data-toggle="tab" href="#hp_products"&gt;
+Products
+&lt;span class="icon-arrow-open-down hidden-md hidden-lg"&gt;&lt;/span&gt;&lt;span class="icon-arrow-open-up hidden-md hidden-lg"&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a role="tab" data-toggle="tab" href="#hp_events"&gt;
+Events
+&lt;span class="icon-arrow-open-down hidden-md hidden-lg"&gt;&lt;/span&gt;&lt;span class="icon-arrow-open-up hidden-md hidden-lg"&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a role="tab" data-toggle="tab" href="#hp_training"&gt;
+Training
+&lt;span class="icon-arrow-open-down hidden-md hidden-lg"&gt;&lt;/span&gt;&lt;span class="icon-arrow-open-up hidden-md hidden-lg"&gt;&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="tab-content responsive "&gt;
+&lt;div id="hp_products" class="tab-pane active"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-md-8"&gt;
+&lt;p&gt;&lt;p&gt;Explore products for &lt;a href="/products/matlab/?s_tid=hp_fp_ml"&gt;MATLAB&lt;/a&gt;, the language of technical computing, and &lt;a href="/products/simulink/?s_tid=hp_fp_sl"&gt;Simulink&lt;/a&gt;, for simulation and Model-Based Design.&lt;/p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4"&gt;
+&lt;h2&gt;Featured Products&lt;/h2&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/products/statistics/?s_tid=hp_fp_list"&gt;Statistics and Machine Learning Toolbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/computer-vision/?s_tid=hp_fp_list"&gt;Computer Vision System Toolbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/robotics/?s_tid=hp_fp_list"&gt;Robotics System Toolbox&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class="list-unstyled add_margin_40"&gt;
+&lt;li&gt;&lt;a href="/products/simscape/?s_tid=hp_fp_list"&gt;Simscape&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/hdl-coder/?s_tid=hp_fp_list"&gt;HDL Coder&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/simulink-test/?s_tid=hp_fp_list"&gt;Simulink Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/simulink-real-time/?s_tid=hp_fp_list"&gt;Simulink Real-Time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/products/polyspace/?s_tid=hp_fp_list"&gt;Polyspace Bug Finder and Code Prover&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="/products/index.html?s_tid=hp_fp_viewall"&gt;View all products&lt;/a&gt; or &lt;a href="/programs/trials/trial_request.html?eventid=629055461&amp;s_iid=hp_trial_hpg_bod"&gt;get trial software&lt;/a&gt;&lt;/p&gt; &lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-8"&gt;
+&lt;div class="row add_equal_heights"&gt;
+&lt;div class="col-xs-12 col-sm-12 col-md-6"&gt;
+&lt;div class="panel panel-default panel_color_default panel_color_fill panel_image_right add_margin_5" id="release_video_fixed" style="background-image:url(/images/responsive/callouts/bg-box.png);"&gt;
+&lt;div class="panel-body"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-12 col-md-8"&gt;
+&lt;h2&gt;Latest Release&lt;/h2&gt;
+&lt;object type="image/svg+xml" data="/images/responsive/global/r2016a.svg" class="responsive" width="130"&gt;
+&lt;img src="/images/responsive/global/r2016a.png" alt="R2016a"&gt;
+&lt;/object&gt;
+&lt;p&gt;Two new products and updates to MATLAB, Simulink, and 81 other products&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12"&gt;
+&lt;a href="/products/new_products/latest_features.html?s_tid=hp_spot_R2016a_0316" class="icon-chevron"&gt;Learn more &lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-12 col-md-6"&gt;
+&lt;div class="panel panel-default panel_color_default panel_color_fill panel_image_right add_margin_5" id="try_matlab_other_products" style="background-image:url(/images/responsive/callouts/bg_trial_arrow_large.png); min-height:200px;"&gt;
+&lt;div class="panel-body"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-12 col-md-8"&gt;
+&lt;h2&gt;Trial Software&lt;/h2&gt;
+&lt;h3&gt;Try MATLAB, Simulink, and Other Products&lt;/h3&gt;
+&lt;a href="/programs/trials/trial_request.html?eventid=629055461&amp;s_iid=hp_trial_hpg_cta2" class="icon-chevron"&gt;Get trial software &lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="hp_events" class="tab-pane"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4"&gt;
+&lt;h2&gt;Live&lt;/h2&gt;
+&lt;div class="table-responsive"&gt;
+&lt;table class="table"&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;21 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go2.mathworks.com/serdes-design-flows-ibis-ami-model-lwb-na-1512810?s_iid=hp_uw_hpg_bod" title="Leveraging SerDes Design Flows for IBIS-AMI Model Development"&gt;Leveraging SerDes Design Flows for IBIS-AMI Model&amp;hellip;&lt;/a&gt; &lt;span class="secondary_color"&gt;(webinar)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;23 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go2.mathworks.com/application-deployment-matlab-lwb-na-1405326?s_iid=hp_uw_hpg_bod" title="Sharing and Deploying MATLAB Applications"&gt;Sharing and Deploying MATLAB Applications&lt;/a&gt; &lt;span class="secondary_color"&gt;(webinar)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;30 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go2.mathworks.com/develop-apps-ml-sl-robotics-sys-toolbox-lwb-na-1405613?s_iid=hp_uw_hpg_bod" title="Developing Robotics Applications with MATLAB, Simulink, and Robotics System Toolbox"&gt;Developing Robotics Applications with MATLAB,&amp;hellip;&lt;/a&gt; &lt;span class="secondary_color"&gt;(webinar)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;12 Jul&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go2.mathworks.com/verifying-adas-features-automating-labeling-and-re-simulation-lwb-in-1513963?s_iid=hp_uw_hpg_bod" title="Verifying ADAS Features: Automating Ground-truth Labeling and Re-simulation"&gt;Verifying ADAS Features: Automating Ground-truth&amp;hellip;&lt;/a&gt; &lt;span class="secondary_color"&gt;(webinar)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;2 Aug&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go2.mathworks.com/introduction-matlab-lwb-na-1538837?s_iid=hp_uw_hpg_bod" title="MATLAB for New Users"&gt;MATLAB for New Users&lt;/a&gt; &lt;span class="secondary_color"&gt;(webinar)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4 add_border_left"&gt;
+&lt;h2&gt;On Demand&lt;/h2&gt;
+&lt;div class="table-responsive"&gt;
+&lt;table class="table"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/videos/mechatronic-simulation-with-simelectronics-81946.html?s_iid=hp_rw_hpg_bod" &gt;Mechatronic Simulation with SimElectronics&lt;/a&gt; &lt;span class="video_length"&gt;(32:58)&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/videos/physical-modeling-with-simscape-81950.html?s_iid=hp_rw_hpg_bod" &gt;Physical Modeling with Simscape&lt;/a&gt; &lt;span class="video_length"&gt;(40:27)&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/videos/hydraulic-simulation-with-simhydraulics-81959.html?s_iid=hp_rw_hpg_bod" &gt;Fluid Power Simulation with Simscape Fluids&lt;/a&gt; &lt;span class="video_length"&gt;(39:58)&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/videos/building-smart-robots-using-simulink-and-arduino-120345.html?s_iid=hp_rw_hpg_bod" &gt;Building Smart Robots Using Simulink and Arduino&lt;/a&gt; &lt;span class="video_length"&gt;(25:47)&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/videos/improve-asic-and-fpga-verification-productivity-by-connecting-to-system-level-design-120256.html?s_iid=hp_rw_hpg_bod" &gt;Improve ASIC and FPGA verification productivity by connecting to system-level design&lt;/a&gt; &lt;span class="video_length"&gt;(24:06)&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-12 col-md-4 "&gt;
+&lt;div class="panel panel-default panel_color_default panel_color_fill panel_image_cover add_margin_20" id="mvc" &gt;
+&lt;div class="panel-body"&gt;
+&lt;h3 class="add_font_automate add_font_color_secondary"&gt;MATLAB&lt;br&gt;VIRTUAL CONFERENCE&lt;br&gt;2015&lt;/h3&gt;
+&lt;a href="/company/events/conferences/matlab-virtual-conference/?s_iid=hp_conf_event_cta1" class="icon-chevron"&gt;View proceedings &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="panel-footer panel_color_default panel_color_fill" style="background-color: #000; background-image:url(/images/responsive/callouts/networking.jpg);"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class="row"&gt;
+&lt;div class="col-sm-12"&gt; &lt;a href="/company/events/?s_tid=hp_ev_all"&gt;Explore all events&lt;/a&gt;: &lt;a href="/company/events/webinars/upcoming.html?s_tid=hp_ev_wbnr"&gt;webinars&lt;/a&gt;, &lt;a href="/company/events/seminars/index.html?s_tid=hp_ev_sm"&gt;seminars&lt;/a&gt;, &lt;a href="/company/events/tradeshows/index.html?s_tid=hp_ev_td"&gt;tradeshows&lt;/a&gt;, and &lt;a href="/company/events/conferences/index.html?s_tid=hp_ev_conf"&gt;conferences&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="hp_training" class="tab-pane"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4 add_border_right"&gt; &lt;h2&gt;Online&lt;/h2&gt;
+&lt;div class="table-responsive"&gt;
+&lt;table class="table"&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;23 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=MLEX&amp;course_format=online&amp;s_tid=hp_t_ft_crs" title="Interfacing MATLAB with C Code"&gt;Interfacing MATLAB with C Code&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;24 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLPM-D&amp;course_format=online&amp;s_tid=hp_t_ft_crs" title="Modeling Driveline Systems with Simscape"&gt;Modeling Driveline Systems with Simscape&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;29 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLPM-P&amp;course_format=online&amp;s_tid=hp_t_ft_crs" title="Modeling Electrical Power Systems with Simscape"&gt;Modeling Electrical Power Systems with Simscape&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;30 Jun&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=MLCM&amp;course_format=online&amp;s_tid=hp_t_ft_crs" title="Communication Systems Design with MATLAB"&gt;Communication Systems Design with MATLAB&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;05 Jul&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLPM-S&amp;course_format=online&amp;s_tid=hp_t_ft_crs" title="Modeling Physical Systems with Simscape"&gt;Modeling Physical Systems with Simscape&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4"&gt; &lt;h2&gt;Classroom&lt;/h2&gt;
+&lt;div class="table-responsive"&gt;
+&lt;table class="table"&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;Novi,&amp;nbsp;MI&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLAS&amp;course_format=Instructor%20Led&amp;s_tid=hp_t_ft_crs" title="Code Generation for AUTOSAR Software Components"&gt;Code Generation for AUTOSAR Software Components&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;Washington,&amp;nbsp;DC&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLDF&amp;course_format=Instructor%20Led&amp;s_tid=hp_t_ft_crs" title="DSP for FPGAs"&gt;DSP for FPGAs&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;Albuquerque,&amp;nbsp;NM&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=MLEM&amp;course_format=Instructor%20Led&amp;s_tid=hp_t_ft_crs" title="MATLAB to C with MATLAB Coder"&gt;MATLAB to C with MATLAB Coder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;Natick,&amp;nbsp;MA&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=MLPC&amp;course_format=Instructor%20Led&amp;s_tid=hp_t_ft_crs" title="Parallel Computing with MATLAB"&gt;Parallel Computing with MATLAB&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="cell_20"&gt;Novi,&amp;nbsp;MI&lt;/td&gt;
+&lt;td&gt;&lt;a href="/training-schedule/?course_no=SLRT&amp;course_format=Instructor%20Led&amp;s_tid=hp_t_ft_crs" title="Fundamentals of Code Generation for Embedded Applications"&gt;Fundamentals of Code Generation for Embedded&amp;hellip;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-6 col-md-4"&gt; &lt;div class="panel panel-default panel_color_default panel_color_fill panel_image_cover add_margin_20" &gt;
+&lt;div class="panel-body"&gt;
+&lt;h3&gt;Map Out Your Learning Path&lt;/h3&gt;
+&lt;p&gt;Taking courses in a recommended order can help accelerate your proficiency with MATLAB and Simulink. &lt;/p&gt;
+&lt;a href="/services/training/learning-paths.html?s_tid=hp_t_ft_learningpath" class="icon-chevron"&gt;View courses by learning path &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="panel-footer panel_color_default panel_color_fill" style="background-color: #000; background-image:url(/images/responsive/callouts/learning-paths-spotlight.jpg);"&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class="panel panel-default panel_color_default panel_color_fill panel_image_cover add_margin_20" id="MATLAB_academy" &gt;
+&lt;div class="panel-body"&gt;
+&lt;h3&gt;MATLAB Academy&lt;/h3&gt;
+&lt;p&gt;On-demand access to MATLAB training.&lt;br&gt;
+&amp;nbsp;&lt;/p&gt;
+&lt;a href="/programs/bounce_hub_non_webex.html?s_tid=?s_tid=hp_t_ft_mlacad&amp;url=http://MATLABacademy.mathworks.com" class="icon-chevron"&gt;Get started today &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="panel-footer panel_color_default panel_color_fill" style="background-color: #000; background-image:url(/images/responsive/callouts/matlab-academy-training.jpg);"&gt;
+&lt;/div&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;/div&gt;&lt;div class="grid_185 push_7"&gt; Explore all &lt;a href="/training-schedule/?s_tid=hp_t_ft_lcl"&gt;local courses&lt;/a&gt;, &lt;a href="/training-schedule/search?online_class=true"&gt;online courses&lt;/a&gt;, or &lt;a href="/services/training/request_training.html?s_tid=hp_t_ft_oth"&gt;other training options&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;/div&gt;      &lt;/div&gt;
+    &lt;/div&gt;
+
+  
+
+
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+         
+ 
+ 
+
+
+&lt;div id="location_content" style="display:none;"&gt;&lt;/div&gt;
+
+
+&lt;div class="modal fade" id="country-unselected" translate="no"&gt;
+  &lt;div class="modal-dialog modal-lg"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;&lt;span aria-hidden="true"&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;
+        &lt;object type="image/svg+xml" width="167px" class="mw_logo" alt="MathWorks" data="/images/responsive/global/pic-header-mathworks-logo2.svg"&gt;
+          &lt;img alt="MathWorks" width="167px" src="/images/responsive/global/pic-header-mathworks-logo.png"&gt;
+        &lt;/object&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;div class="row add_margin_40"&gt;
+          &lt;div class="col-xs-12"&gt;
+            &lt;h1 class="icon-globe icon_color_secondary"&gt;Select Your Country&lt;/h1&gt;
+            &lt;p&gt;Choose your country to get translated content where available and see local events and offers. Based on your location, we recommend that you select: &lt;strong class="text_location"&gt;&lt;/strong&gt;.&lt;/p&gt;
+            &lt;a href="#" id="domain_select_button" class="btn btn_secondary" data-dismiss="modal"&gt;&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p&gt;You can also select a location from the following list:&lt;/p&gt;
+        &lt;div class="row add_margin_30"&gt;
+          &lt;div class="col-sm-4 col-md-3"&gt;
+            &lt;h3 class="add_bottom_rule"&gt;Americas&lt;/h3&gt;
+            &lt;ul class="list-unstyled"&gt;
+              &lt;li&gt;&lt;a href="http://www.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="canada_select"&gt;Canada&lt;/a&gt; (English)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://www.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="united_states_select"&gt;United States&lt;/a&gt; (English)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div class="col-sm-4 col-md-6"&gt;
+            &lt;h3 class="add_bottom_rule"&gt;Europe&lt;/h3&gt;
+            &lt;div class="row"&gt;
+              &lt;div class="col-xs-6 col-sm-12 col-md-6"&gt;
+                &lt;ul class="list-unstyled add_margin_0_sm"&gt;
+                  &lt;li&gt;&lt;a href="http://nl.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="belgium_select"&gt;Belgium&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://se.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="denmark_select"&gt;Denmark&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://de.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="deutschland_select"&gt;Deutschland&lt;/a&gt; (Deutsch)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://es.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="espana_select"&gt;Espa&ntilde;a&lt;/a&gt; (Espa&ntilde;ol)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://se.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="finland_select"&gt;Finland&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://fr.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="france_select"&gt;France&lt;/a&gt; (Fran&ccedil;ais)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://uk.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="ireland_select"&gt;Ireland&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://it.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="italia_select"&gt;Italia&lt;/a&gt; (Italiano)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://nl.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="luxembourg_select"&gt;Luxembourg&lt;/a&gt; (English)&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+              &lt;div class="col-xs-6 col-sm-12 col-md-6"&gt;
+                &lt;ul class="list-unstyled"&gt;
+                  &lt;li&gt;&lt;a href="http://nl.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="netherlands_select"&gt;Netherlands&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://se.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="norway_select"&gt;Norway&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://de.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="osterreich_select"&gt;&Ouml;sterreich&lt;/a&gt; (Deutsch)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://www.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="portugal_select"&gt;Portugal&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://se.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="sweden_select"&gt;Sweden&lt;/a&gt; (English)&lt;/li&gt;
+                  &lt;li&gt;Switzerland
+                    &lt;ul class="list-unstyled add_indent_20"&gt;
+                      &lt;li&gt;&lt;a href="http://ch.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" id="swiss_german" class="switzerland_select"&gt;Deutsch&lt;/a&gt;&lt;/li&gt;
+                      &lt;li&gt;&lt;a href="http://ch.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" id="swiss_french"&gt;Fran&ccedil;ais&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;&lt;a href="http://uk.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="united_kingdom_select"&gt;United Kingdom&lt;/a&gt; (English)&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="col-sm-4 col-md-3"&gt;
+            &lt;h3 class="add_bottom_rule"&gt;Asia Pacific&lt;/h3&gt;
+            &lt;ul class="list-unstyled"&gt;
+              &lt;li&gt;&lt;a href="http://au.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="australia_select"&gt;Australia&lt;/a&gt; (English)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://in.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="india_select"&gt;India&lt;/a&gt; (English)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://au.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="new_zealand_select"&gt;New Zealand&lt;/a&gt; (English)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://cn.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="china_select"&gt;&#20013;&#22269;&lt;/a&gt; (&#31616;&#20307;&#20013;&#25991;)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://jp.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="japan_select"&gt;&#26085;&#26412;&lt;/a&gt; (&#26085;&#26412;&#35486;)&lt;/li&gt;
+              &lt;li&gt;&lt;a href="http://kr.mathworks.com/index.html?action=changeCountry&amp;nocookie=true&amp;s_tid=gn_loc_drop" class="korea_select"&gt;&#54620;&#44397;&lt;/a&gt; (&#54620;&#44397;&#50612;)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p class="text-center"&gt;&lt;strong&gt;&lt;a href="/company/worldwide/"&gt;See all countries&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+      
+  
+
+  &lt;footer id="footer" class="bs-footer"&gt; 
+      &lt;!-- FAT FOOTER - Begin --&gt; 
+        &lt;div class="fat_footer_container"&gt;
+          &lt;div class="container"&gt;
+            &lt;div class="row"&gt;
+              &lt;div class="col-xs-12"&gt;
+                &lt;div class="grid_192"&gt;
+&lt;div class="fat_footer"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-md-12 col-lg-9 col-lg-push-3 add_margin_20"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/company/?s_tid=hp_ff_about"&gt;About MathWorks&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/company/jobs/opportunities/?s_tid=hp_ff_a_careers"&gt;Careers &#8211; &lt;em&gt;500+ Openings&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/aboutus/soc_mission/?s_tid=hp_ff_a_socialmission"&gt;Social Mission&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/aboutus/contact_us/?s_tid=hp_ff_a_contact"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/videos/?s_tid=hp_ff_a_videos"&gt;
+Videos &lt;/a&gt;&lt;/li&gt;
+&lt;li class="hidden-xs"&gt;&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/discovery/?s_tid=hp_ff_a_discover"&gt;Discover&amp;hellip;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/support/?s_tid=hp_ff_support"&gt;Support&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/help/?s_tid=hp_ff_s_doc"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/programs/bounce_hub_generic.html?url=/licensecenter/&amp;s_tid=hp_ff_s_licensecenter"&gt;License Center&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/downloads/web_downloads/?s_tid=hp_ff_s_downloads"&gt;Downloads&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/support/contact_us/index.html?s_tid=hp_ff_s_contact"&gt;Contact Support&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/company/events/?s_tid=hp_ff_events"&gt;Events&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/company/events/webinars/upcoming.html?s_tid=hp_ff_e_webinars"&gt;Webinars&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/events/seminars/?s_tid=hp_ff_e_seminars"&gt;Seminars&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/events/conferences/?s_tid=hp_ff_e_conferences"&gt;Conferences&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/events/tradeshows/?s_tid=hp_ff_e_tradeshows"&gt;Tradeshows&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/services/training/index.html?s_tid=hp_ff_training"&gt;Training&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/services/training/courses/?s_tid=hp_ff_t_courseofferings"&gt;Classroom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/services/training/online.html?s_tid=hp_ff_t_elearning"&gt;Online&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/services/training/request_training.html?s_tid=hp_ff_t_facility"&gt;Training at Your Facility&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/training-schedule/?s_tid=hp_ff_t_schedule"&gt;Schedule&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/matlabcentral/?s_tid=hp_ff_community"&gt;User Community&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/matlabcentral/fileexchange/?s_tid=hp_ff_c_fx"&gt;File Exchange&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/matlabcentral/answers/?s_tid=hp_ff_c_answers"&gt;MATLAB Answers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/matlabcentral/newsreader/?s_tid=hp_ff_c_newsgroup"&gt;Newsgroup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blogs.mathworks.com/?s_tid=hp_ff_c_blogs"&gt;Blogs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-sm-2"&gt;
+&lt;h5&gt;&lt;a href="/company/newsroom/press-releases/?s_tid=hp_ff_news"&gt;News&lt;/a&gt;&lt;/h5&gt;
+&lt;ul class="list-unstyled"&gt;
+&lt;li&gt;&lt;a href="/company/newsroom/?s_tid=hp_ff_n_pressroom"&gt;Newsroom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/newsletters/?s_tid=hp_ff_n_newsletters"&gt;Newsletters&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/user_stories/?s_tid=hp_ff_n_userstories"&gt;User Stories&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/company/newsletters/search.html?s_tid=hp_ff_n_technicalarticles"&gt;Technical Articles&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-xs-12 col-md-12 col-lg-3 col-lg-pull-9"&gt;
+&lt;h4 class="add_font_futura_medium add_margin_0"&gt;MathWorks&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;Accelerating the pace of engineering and science&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;MathWorks is the leading developer of mathematical computing software for engineers and scientists.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;!-- FAT FOOTER - End --&gt;
+    &lt;!-- BASIC FOOTER CONTENT - Begin --&gt; 
+    &lt;div class="container"&gt; 
+      &lt;div class="footer"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-xs-12 col-md-9"&gt;
+&lt;ul class="countrynav" id="countrynav"&gt;
+&lt;li class="footernav_country"&gt;
+&lt;a href="javascript:void(0);" data-toggle="modal" data-target="#country-unselected"&gt;
+&lt;span class="icon-globe icon_color_quinary icon_16"&gt;&lt;/span&gt;United States
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;ul class="footernav"&gt;
+&lt;li class="footernav_patents"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/policies_statements/patents.html?s_tid=gf_pat"&gt;Patents&lt;/a&gt;&lt;/li&gt;
+&lt;li class="footernav_trademarks"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/policies_statements/trademarks.html?s_tid=gf_trd"&gt;Trademarks&lt;/a&gt;&lt;/li&gt;
+&lt;li class="footernav_privacy"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/policies_statements/?s_tid=gf_priv"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+&lt;li class="footernav_piracy"&gt;&lt;a href="http://www.mathworks.com/company/aboutus/policies_statements/piracy.html?s_tid=gf_pir"&gt;Preventing Piracy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;p class="copyright" translate="no"&gt;&amp;copy; 1994-2016 The MathWorks, Inc.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="clearfix visible-sm add_margin_10"&gt;&lt;/div&gt;
+&lt;div class="col-xs-12 col-md-3"&gt;
+&lt;div class="social_media"&gt;
+&lt;ul class="social_media_icons"&gt;
+&lt;li&gt;
+&lt;a href="http://www.facebook.com/MATLAB" target="_blank" class="svg_link"&gt;
+&lt;img src="/images/responsive/global/ico-facebook.svg" alt="Facebook" class="ico_facebook"&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://www.twitter.com/MATLAB" target="_blank" class="svg_link"&gt;
+&lt;img src="/images/responsive/global/ico-twitter.svg" alt="Twitter" class="ico_twitter"&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="https://plus.google.com/117177960465154322866?prsrc=3" target="_blank" class="svg_link"&gt;
+&lt;img src="/images/responsive/global/ico-google-plus.svg" alt="Google+" class="ico_google"&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://www.linkedin.com/company/the-mathworks_2" target="_blank" class="svg_link"&gt;
+&lt;img src="/images/responsive/global/ico-linkedin.svg" alt="LinkedIn" class="ico_linkedin"&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://www.mathworks.com/company/rss/index.html" class="svg_link"&gt;
+&lt;img src="/images/responsive/global/ico-rss.svg" alt="RSS" class="ico_rss"&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Join the conversation&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- BEGIN Adobe DTM --&gt;
+&lt;script type="text/javascript"&gt;
+try {
+_satellite.pageBottom();
+} catch (e) {
+//something went wrong
+}
+&lt;/script&gt;
+&lt;!-- END Adobe DTM --&gt;
+    &lt;/div&gt;
+    &lt;!-- BASIC FAT FOOTER CONTENT - End --&gt;
+  &lt;/footer&gt;
+
+    &lt;script src="/includes_content/responsive/scripts/lightbox-min.js"&gt;&lt;/script&gt; 
+    &lt;script&gt;
+      $(document).ready(function ($) {
+
+        // delegate calls to data-toggle="lightbox"
+        $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+          event.preventDefault();
+          return $(this).ekkoLightbox({
+            onShown: function() {
+				if ($('.ekko-lightbox-container iframe').length) {
+				  $(".ekko-lightbox-container iframe").attr("scrolling","no");
+				  $(".ekko-lightbox-container iframe").load(lightboxIframeHeight);
+				}
+            },
+            onNavigate: function(direction, itemIndex) {
+              if (window.console) {
+                return console.log('Navigating '+direction+'. Current item: '+itemIndex);
+              }
+            }
+          });
+        });
+		
+		// resize
+		$(window).resize(lightboxIframeHeight)	
+
+		// lightbox height function
+		function lightboxIframeHeight() {
+			if ($('.ekko-lightbox-container iframe').length) {
+				whichIframeHeight = $('.ekko-lightbox-container iframe').contents().find('body').height() + 20;
+				$(".ekko-lightbox-container iframe").css("height",whichIframeHeight);
+			}
+		}
+
+        //Programatically call
+        $('#open-image').click(function (e) {
+          e.preventDefault();
+          $(this).ekkoLightbox();
+        });
+        $('#open-youtube').click(function (e) {
+          e.preventDefault();
+          $(this).ekkoLightbox();
+        });
+      });
+    &lt;/script&gt; 
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+</pre><pre class="codeinput"><span class="syscmd">!javac myreader.java</span>
+</pre><pre class="codeinput">myreader.geturl(<span class="string">'http://www.google.com'</span>,<span class="string">'my.txt'</span>)
+</pre><pre class="codeoutput error">Undefined variable "myreader" or class "myreader.geturl".
+
+Error in ch14 (line 17)
+myreader.geturl('http://www.google.com','my.txt')
+</pre><h2>14.5 Loading a URL as a matrix<a name="8"></a></h2><pre class="codeinput">w = loadurl(<span class="string">'http://www.cise.ufl.edu/~davis/MATLABPrimer8E/w'</span>)
+</pre><pre class="codeinput">s = loadurl(<span class="string">'http://www.cise.ufl.edu/research/sparse/mat/HB/west0479.mat'</span>)
+prob = s.Problem
+spy(prob.A)
+title([prob.name <span class="string">': '</span> prob.title])
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 14 Calling Java from MATLAB
+
+%% 14.1 A simple example
+
+%% 14.2 Encryption/decryption
+
+%% 14.3 Java class path
+
+%% 14.4 Calling your own Java methods
+%% 
+s = urlread('http://www.mathworks.com')
+
+%% 
+!javac myreader.java
+
+%% 
+myreader.geturl('http://www.google.com','my.txt')
+
+%% 14.5 Loading a URL as a matrix
+w = loadurl('http://www.cise.ufl.edu/~davis/MATLABPrimer8E/w')
+
+%% 
+s = loadurl('http://www.cise.ufl.edu/research/sparse/mat/HB/west0479.mat')
+prob = s.Problem
+spy(prob.A)
+title([prob.name ': ' prob.title])
+
+
+
+
+##### SOURCE END #####
+--></body></html>

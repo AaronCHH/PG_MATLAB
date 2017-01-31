@@ -1,0 +1,216 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>15 Two-Dimensional Graphics</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-15"><meta name="DC.source" content="ch15.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>15 Two-Dimensional Graphics</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">15.1 Planar plots</a></li><li><a href="#4">15.2 Multiple figures</a></li><li><a href="#5">15.3 Graph of a function</a></li><li><a href="#8">15.4 Parametrically defined curves</a></li><li><a href="#9">15.5 Titles, labels, text in a graph</a></li><li><a href="#11">15.6 Control of axes and scaling</a></li><li><a href="#12">15.7 Multiple plots</a></li><li><a href="#16">15.8 Line types, marker types, colors</a></li><li><a href="#17">15.9 Subplots and specialized plots</a></li><li><a href="#18">15.10 Graphics hard copy</a></li></ul></div><h2>15.1 Planar plots<a name="1"></a></h2><pre class="codeinput">x = -4:0.01:4 ;
+y = sin(x) ;
+plot(x, y) ;
+</pre><img vspace="5" hspace="5" src="ch15_01.png" alt=""> <pre class="codeinput">x = -3:.01:3 ;
+y = exp(-x.^2) ;
+plot(x, y) ;
+</pre><img vspace="5" hspace="5" src="ch15_02.png" alt=""> <h2>15.2 Multiple figures<a name="4"></a></h2><h2>15.3 Graph of a function<a name="5"></a></h2><pre class="codeinput">fplot(@expnormal, [-3 3])
+</pre><img vspace="5" hspace="5" src="ch15_03.png" alt=""> <pre class="codeinput">f = @(x) exp(-x.^2)
+fplot(f, [-3 3])
+</pre><pre class="codeoutput">
+f = 
+
+    @(x)exp(-x.^2)
+
+</pre><img vspace="5" hspace="5" src="ch15_04.png" alt=""> <h2>15.4 Parametrically defined curves<a name="8"></a></h2><pre class="codeinput">t = 0:.001:2*pi ;
+x = cos(3*t) ;
+y = sin(2*t) ;
+plot(x, y) ;
+</pre><img vspace="5" hspace="5" src="ch15_05.png" alt=""> <h2>15.5 Titles, labels, text in a graph<a name="9"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  title graph title
+</span><span class="comment">  xlabel x-axis label
+</span><span class="comment">  ylabel y-axis label
+</span><span class="comment">  gtext place text on graph using the mouse
+</span><span class="comment">  text position text at specified coordinates
+</span><span class="comment">%}</span>
+</pre><pre class="codeinput">title(<span class="string">'A parametric cos/sin curve'</span>)
+</pre><img vspace="5" hspace="5" src="ch15_06.png" alt=""> <h2>15.6 Control of axes and scaling<a name="11"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  axis([xmin xmax ymin ymax]) sets the axes
+</span><span class="comment">  axis manual freezes the current axes for new plots
+</span><span class="comment">  axis auto returns to auto-scaling
+</span><span class="comment">  v = axis vector v shows current scaling
+</span><span class="comment">  axis square axes of same size (not same scale)
+</span><span class="comment">  axis equal same scale and tic marks on axes
+</span><span class="comment">  axis off removes the axes
+</span><span class="comment">  axis on restores the axes
+</span><span class="comment">%}</span>
+</pre><h2>15.7 Multiple plots<a name="12"></a></h2><pre class="codeinput">x = 0:.01:2*pi;
+y1 = sin(x) ;
+y2 = sin(2*x) ;
+y3 = sin(4*x) ;
+plot(x, y1, x, y2, x, y3)
+</pre><img vspace="5" hspace="5" src="ch15_07.png" alt=""> <pre class="codeinput">x = (0:.01:2*pi)' ;
+y = [sin(x), sin(2*x), sin(4*x)] ;
+plot(x, y)
+</pre><img vspace="5" hspace="5" src="ch15_08.png" alt=""> <pre class="codeinput">plot(x, y, [0 2*pi], [0 0])
+</pre><img vspace="5" hspace="5" src="ch15_09.png" alt=""> <h2>15.8 Line types, marker types, colors<a name="16"></a></h2><pre class="codeinput">x = 0:.01:2*pi ;
+y1 = sin(x) ;
+y2 = sin(2*x) ;
+y3 = sin(4*x) ;
+plot(x,y1, <span class="string">'--'</span>, x,y2, <span class="string">':'</span>, x,y3, <span class="string">'o'</span>)
+</pre><img vspace="5" hspace="5" src="ch15_10.png" alt=""> <h2>15.9 Subplots and specialized plots<a name="17"></a></h2><pre class="codeinput">subplot(2,2,1)
+plot(x,y1, <span class="string">'--'</span>)
+subplot(2,2,2)
+plot(x,y2, <span class="string">':'</span>)
+subplot(2,2,[3 4])
+plot(x,y3, <span class="string">'o'</span>)
+</pre><img vspace="5" hspace="5" src="ch15_11.png" alt=""> <h2>15.10 Graphics hard copy<a name="18"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 15 Two-Dimensional Graphics
+
+%% 15.1 Planar plots
+%% 
+x = -4:0.01:4 ;
+y = sin(x) ;
+plot(x, y) ;
+
+%% 
+x = -3:.01:3 ;
+y = exp(-x.^2) ;
+plot(x, y) ;
+
+%% 15.2 Multiple figures
+
+%% 15.3 Graph of a function
+%% 
+fplot(@expnormal, [-3 3])
+
+%% 
+f = @(x) exp(-x.^2)
+fplot(f, [-3 3])
+
+%% 15.4 Parametrically defined curves
+t = 0:.001:2*pi ;
+x = cos(3*t) ;
+y = sin(2*t) ;
+plot(x, y) ;
+
+%% 15.5 Titles, labels, text in a graph
+
+%{
+  title graph title
+  xlabel x-axis label
+  ylabel y-axis label
+  gtext place text on graph using the mouse
+  text position text at specified coordinates
+%}
+
+%% 
+title('A parametric cos/sin curve')
+
+%% 15.6 Control of axes and scaling
+%{
+  axis([xmin xmax ymin ymax]) sets the axes
+  axis manual freezes the current axes for new plots
+  axis auto returns to auto-scaling
+  v = axis vector v shows current scaling
+  axis square axes of same size (not same scale)
+  axis equal same scale and tic marks on axes
+  axis off removes the axes
+  axis on restores the axes
+%}
+
+%% 15.7 Multiple plots
+%% 
+x = 0:.01:2*pi;
+y1 = sin(x) ;
+y2 = sin(2*x) ;
+y3 = sin(4*x) ;
+plot(x, y1, x, y2, x, y3)
+
+%% 
+x = (0:.01:2*pi)' ;
+y = [sin(x), sin(2*x), sin(4*x)] ;
+plot(x, y)
+
+%% 
+plot(x, y, [0 2*pi], [0 0])
+
+%% 15.8 Line types, marker types, colors
+x = 0:.01:2*pi ;
+y1 = sin(x) ;
+y2 = sin(2*x) ;
+y3 = sin(4*x) ;
+plot(x,y1, 'REPLACE_WITH_DASH_DASH', x,y2, ':', x,y3, 'o')
+
+
+%% 15.9 Subplots and specialized plots
+subplot(2,2,1)
+plot(x,y1, 'REPLACE_WITH_DASH_DASH')
+subplot(2,2,2)
+plot(x,y2, ':')
+subplot(2,2,[3 4])
+plot(x,y3, 'o')
+
+%% 15.10 Graphics hard copy
+
+##### SOURCE END #####
+--></body></html>

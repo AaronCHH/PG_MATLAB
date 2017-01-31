@@ -1,0 +1,294 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>21 Solving Equations</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-15"><meta name="DC.source" content="ch21.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>21 Solving Equations</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">21.1 Symbolic equations</a></li><li><a href="#2">21.2 Linear systems of equations</a></li><li><a href="#3">21.3 Polynomial roots</a></li><li><a href="#4">21.4 Nonlinear equations</a></li><li><a href="#16">21.5 Ordinary differential equations</a></li><li><a href="#24">21.6 Other differential equations</a></li></ul></div><h2>21.1 Symbolic equations<a name="1"></a></h2><h2>21.2 Linear systems of equations<a name="2"></a></h2><h2>21.3 Polynomial roots<a name="3"></a></h2><h2>21.4 Nonlinear equations<a name="4"></a></h2><pre class="codeinput">fzero(@(x) x^2-2, 1)
+</pre><pre class="codeoutput">
+ans =
+
+    1.4142
+
+</pre><pre class="codeinput">fa = @(x) (x-2)^2
+fb = @(x) (x-2)^2 - 1e-12
+</pre><pre class="codeoutput">
+fa = 
+
+    @(x)(x-2)^2
+
+
+fb = 
+
+    @(x)(x-2)^2-1e-12
+
+</pre><p>fzero(fa, 1) fzero(fb, 3)</p><pre class="codeinput">syms <span class="string">x</span>
+solve((x-2)^2)
+s = solve((x-2)^2-1e-12)
+fb(s(1))
+fb(s(2))
+</pre><pre class="codeoutput"> 
+ans =
+ 
+ 2
+ 2
+ 
+ 
+s =
+ 
+ 1999999/1000000
+ 2000001/1000000
+ 
+ 
+ans =
+ 
+0
+ 
+ 
+ans =
+ 
+0
+ 
+</pre><pre class="codeinput">fzero(fb, 2)
+format <span class="string">long</span>
+fzero(fb, [2 3])
+fzero(fb, [1 2])
+</pre><pre class="codeoutput">
+ans =
+
+    2.0000
+
+
+ans =
+
+   2.000001000000000
+
+
+ans =
+
+   1.999999000000000
+
+</pre><pre class="codeinput">f = @(x) real(airy(x))
+figure(1) ; clf
+ezplot(f)
+solve(<span class="string">'real(airy(x))'</span>)
+</pre><pre class="codeoutput">
+f = 
+
+    @(x)real(airy(x))
+
+</pre><pre class="codeoutput error">Error using symengine
+First argument must be 0,1,2, or 3.
+
+Error in sym&gt;convertExpression (line 1449)
+s = mupadmex({x});
+
+Error in sym&gt;convertChar (line 1364)
+    s = convertExpression(x);
+
+Error in sym&gt;tomupad (line 1164)
+        S = convertChar(x);
+
+Error in sym (line 163)
+                S.s = tomupad(x);
+
+Error in solve&gt;getEqns (line 405)
+        a = sym(a);
+
+Error in solve (line 225)
+[eqns,vars,options] = getEqns(varargin{:});
+
+Error in ch21 (line 38)
+solve('real(airy(x))')
+</pre><pre class="codeinput">s = fzero(f, 0)
+hold <span class="string">on</span>
+plot(s, f(s), <span class="string">'ro'</span>)
+</pre><pre class="codeinput">xmin = fminbnd(f, -4, 0)
+plot(xmin, f(xmin), <span class="string">'ko'</span>)
+</pre><pre class="codeinput">g = @(x) -real(airy(x))
+xmax = fminbnd(g, -5, -4)
+plot(xmax, f(xmax), <span class="string">'ko'</span>)
+</pre><pre class="codeinput">s = fzero(f, [xmax xmin])
+plot(s, f(s), <span class="string">'ro'</span>)
+</pre><pre class="codeinput">xmin = fminsearch(f, -6)
+plot(xmin, f(xmin), <span class="string">'kx'</span>)
+</pre><h2>21.5 Ordinary differential equations<a name="16"></a></h2><pre class="codeinput">syms <span class="string">t</span> <span class="string">y</span>
+Y = dsolve(<span class="string">'Dy = t^2*y'</span>, <span class="string">'y(0)=1'</span>, <span class="string">'t'</span>)
+</pre><p>[tt,yy] = ode45(@f, tspan, y0)</p><pre class="codeinput">f1 = @(t,y) t^2 * y
+</pre><pre class="codeinput">[tr,yr] = ode45(f1, [0 2], 1) ;
+</pre><pre class="codeinput">ts = 0:.05:2 ;
+ys = subs(Y, t, ts) ;
+figure(2) ; clf
+plot(ts,ys, <span class="string">'r-'</span>, tr,yr, <span class="string">'bx'</span>) ;
+legend(<span class="string">'symbolic'</span>, <span class="string">'numeric'</span>)
+ys = subs(Y, t, tr) ;
+[tr ys yr ys-yr]
+err = norm(ys-yr) / norm(ys)
+</pre><pre class="codeinput">Y = dsolve(<span class="string">'D2y + y = t^2'</span>, <span class="string">'y(0)=1'</span>, <span class="string">'Dy(0)=0'</span>, <span class="string">'t'</span>)
+</pre><pre class="codeinput">f2 = @(t,y) [y(2) ; t^2-y(1)]
+[tr,yy] = ode45(f2, [0 2], [1 0]') ;
+yr = yy(:,1) ;
+</pre><h2>21.6 Other differential equations<a name="24"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 21 Solving Equations
+
+%% 21.1 Symbolic equations
+
+%% 21.2 Linear systems of equations
+
+%% 21.3 Polynomial roots
+
+%% 21.4 Nonlinear equations
+%% 
+fzero(@(x) x^2-2, 1)
+
+%% 
+fa = @(x) (x-2)^2
+fb = @(x) (x-2)^2 - 1e-12
+
+%% 
+% fzero(fa, 1)
+% fzero(fb, 3)
+
+%% 
+syms x
+solve((x-2)^2)
+s = solve((x-2)^2-1e-12)
+fb(s(1))
+fb(s(2))
+
+%% 
+fzero(fb, 2)
+format long
+fzero(fb, [2 3])
+fzero(fb, [1 2])
+
+%% 
+f = @(x) real(airy(x))
+figure(1) ; clf
+ezplot(f)
+solve('real(airy(x))')
+
+%% 
+s = fzero(f, 0)
+hold on
+plot(s, f(s), 'ro')
+
+%% 
+xmin = fminbnd(f, -4, 0)
+plot(xmin, f(xmin), 'ko')
+
+%% 
+g = @(x) -real(airy(x))
+xmax = fminbnd(g, -5, -4)
+plot(xmax, f(xmax), 'ko')
+
+%% 
+s = fzero(f, [xmax xmin])
+plot(s, f(s), 'ro')
+
+%% 
+xmin = fminsearch(f, -6)
+plot(xmin, f(xmin), 'kx')
+
+
+%% 21.5 Ordinary differential equations
+%% 
+syms t y
+Y = dsolve('Dy = t^2*y', 'y(0)=1', 't')
+
+%%
+% [tt,yy] = ode45(@f, tspan, y0)
+
+%% 
+f1 = @(t,y) t^2 * y
+
+%% 
+[tr,yr] = ode45(f1, [0 2], 1) ;
+
+%% 
+ts = 0:.05:2 ;
+ys = subs(Y, t, ts) ;
+figure(2) ; clf
+plot(ts,ys, 'r-', tr,yr, 'bx') ;
+legend('symbolic', 'numeric')
+ys = subs(Y, t, tr) ;
+[tr ys yr ys-yr]
+err = norm(ys-yr) / norm(ys)
+
+%% 
+Y = dsolve('D2y + y = t^2', 'y(0)=1', 'Dy(0)=0', 't')
+
+%% 
+f2 = @(t,y) [y(2) ; t^2-y(1)]
+[tr,yy] = ode45(f2, [0 2], [1 0]') ;
+yr = yy(:,1) ;
+
+%% 21.6 Other differential equations
+
+
+
+##### SOURCE END #####
+--></body></html>

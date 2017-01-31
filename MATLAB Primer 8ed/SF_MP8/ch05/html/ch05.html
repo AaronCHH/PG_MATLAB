@@ -1,0 +1,1061 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>5 MATLAB Functions</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-06-14"><meta name="DC.source" content="ch05.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>5 MATLAB Functions</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">5.1 Constructing matrices</a></li><li><a href="#9">5.2 Scalar functions</a></li><li><a href="#11">5.3 Vector functions and data analysis</a></li><li><a href="#12">5.4 Matrix functions</a></li><li><a href="#13">5.5 The linsolve function</a></li><li><a href="#18">5.6 The find function</a></li><li><a href="#22">5.7 1-D indexing and the reshape function</a></li><li><a href="#30">5.8 Logical indexing</a></li><li><a href="#33">5.9 The bsxfun and repmat functions</a></li></ul></div><h2>5.1 Constructing matrices<a name="1"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  eye         % identity matrix
+</span><span class="comment">  zeros       % matrix of zeros
+</span><span class="comment">  ones        % matrix of ones
+</span><span class="comment">  diag        % create or extract diagonals
+</span><span class="comment">  triu        % upper triangular part of a matrix
+</span><span class="comment">  tril        % lower triangular part of a matrix
+</span><span class="comment">  rand        % randomly generated matrix
+</span><span class="comment">  hilb        % Hilbert matrix
+</span><span class="comment">  magic       % magic square
+</span><span class="comment">  toeplitz    % Toeplitz matrix
+</span><span class="comment">  gallery     % a wide range of interesting matrices
+</span><span class="comment">%}</span>
+</pre><pre class="codeinput">A = rand(3)
+</pre><pre class="codeoutput">
+A =
+
+    0.4317    0.1672    0.1981
+    0.0155    0.1062    0.4897
+    0.9841    0.3724    0.3395
+
+</pre><pre class="codeinput">x = 1:3
+diag(x)
+diag(A)
+diag(diag(A))
+</pre><pre class="codeoutput">
+x =
+
+     1     2     3
+
+
+ans =
+
+     1     0     0
+     0     2     0
+     0     0     3
+
+
+ans =
+
+    0.4317
+    0.1062
+    0.3395
+
+
+ans =
+
+    0.4317         0         0
+         0    0.1062         0
+         0         0    0.3395
+
+</pre><pre class="codeinput">B = [A zeros(3,2) ; pi*ones(2,3), eye(2)]
+</pre><pre class="codeoutput">
+B =
+
+    0.4317    0.1672    0.1981         0         0
+    0.0155    0.1062    0.4897         0         0
+    0.9841    0.3724    0.3395         0         0
+    3.1416    3.1416    3.1416    1.0000         0
+    3.1416    3.1416    3.1416         0    1.0000
+
+</pre><pre class="codeinput">triu(A)
+triu(A) == A
+</pre><pre class="codeoutput">
+ans =
+
+    0.4317    0.1672    0.1981
+         0    0.1062    0.4897
+         0         0    0.3395
+
+
+ans =
+
+     1     1     1
+     0     1     1
+     0     0     1
+
+</pre><pre class="codeinput">A = gallery(<span class="string">'parter'</span>, 6)
+svd(A)
+</pre><pre class="codeoutput">
+A =
+
+    2.0000   -2.0000   -0.6667   -0.4000   -0.2857   -0.2222
+    0.6667    2.0000   -2.0000   -0.6667   -0.4000   -0.2857
+    0.4000    0.6667    2.0000   -2.0000   -0.6667   -0.4000
+    0.2857    0.4000    0.6667    2.0000   -2.0000   -0.6667
+    0.2222    0.2857    0.4000    0.6667    2.0000   -2.0000
+    0.1818    0.2222    0.2857    0.4000    0.6667    2.0000
+
+
+ans =
+
+    3.1416
+    3.1416
+    3.1409
+    3.1244
+    2.8875
+    1.4161
+
+</pre><pre class="codeinput">A = rosser;
+eig(A)
+eigs(A)
+</pre><pre class="codeoutput">
+ans =
+
+   1.0e+03 *
+
+   -1.0200
+    0.0000
+    0.0001
+    1.0000
+    1.0000
+    1.0199
+    1.0200
+    1.0200
+
+
+ans =
+
+   1.0e+03 *
+
+   -1.0200
+    1.0200
+    1.0200
+    1.0199
+    1.0000
+    1.0000
+
+</pre><h2>5.2 Scalar functions<a name="9"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  abs atan2 exp log10 rem sqrt
+</span><span class="comment">  acos ceil floor log2 round tan
+</span><span class="comment">  asin conj imag mod sign
+</span><span class="comment">  atan cos log real sin
+</span><span class="comment">%}</span>
+</pre><pre class="codeinput">x = (0:0.1:2)'
+y = sin(x)
+[x y]
+</pre><pre class="codeoutput">
+x =
+
+         0
+    0.1000
+    0.2000
+    0.3000
+    0.4000
+    0.5000
+    0.6000
+    0.7000
+    0.8000
+    0.9000
+    1.0000
+    1.1000
+    1.2000
+    1.3000
+    1.4000
+    1.5000
+    1.6000
+    1.7000
+    1.8000
+    1.9000
+    2.0000
+
+
+y =
+
+         0
+    0.0998
+    0.1987
+    0.2955
+    0.3894
+    0.4794
+    0.5646
+    0.6442
+    0.7174
+    0.7833
+    0.8415
+    0.8912
+    0.9320
+    0.9636
+    0.9854
+    0.9975
+    0.9996
+    0.9917
+    0.9738
+    0.9463
+    0.9093
+
+
+ans =
+
+         0         0
+    0.1000    0.0998
+    0.2000    0.1987
+    0.3000    0.2955
+    0.4000    0.3894
+    0.5000    0.4794
+    0.6000    0.5646
+    0.7000    0.6442
+    0.8000    0.7174
+    0.9000    0.7833
+    1.0000    0.8415
+    1.1000    0.8912
+    1.2000    0.9320
+    1.3000    0.9636
+    1.4000    0.9854
+    1.5000    0.9975
+    1.6000    0.9996
+    1.7000    0.9917
+    1.8000    0.9738
+    1.9000    0.9463
+    2.0000    0.9093
+
+</pre><h2>5.3 Vector functions and data analysis<a name="11"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  max sum median any sort var
+</span><span class="comment">  min prod mean all std mode
+</span><span class="comment">%}</span>
+</pre><h2>5.4 Matrix functions<a name="12"></a></h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  eig       % eigenvalues and eigenvectors
+</span><span class="comment">  eigs      % like eig, for large sparse matrices
+</span><span class="comment">  chol      % Cholesky factorization
+</span><span class="comment">  svd       % singular value decomposition
+</span><span class="comment">  svds      % like svd, for large sparse matrices
+</span><span class="comment">  lu        % LU factorization
+</span><span class="comment">  qr        % QR factorization
+</span><span class="comment">  poly      % characteristic polynomial
+</span><span class="comment">  det       % determinant
+</span><span class="comment">  size      % size of an array
+</span><span class="comment">  length    % length of a vector
+</span><span class="comment">  norm      % 1-norm, 2-norm, Frobenius-norm, &#8734;-norm
+</span><span class="comment">  cond      % condition number in the 2-norm
+</span><span class="comment">  condest   % condition number estimate
+</span><span class="comment">  rank      % rank
+</span><span class="comment">  kron      % Kronecker tensor product
+</span><span class="comment">  find      % find indices of nonzero entries
+</span><span class="comment">  linsolve  % solve a special linear system
+</span><span class="comment">%}
+</span>
+lambda = eig(A)
+
+[V, Lambda] = eig(A)
+</pre><pre class="codeoutput">
+lambda =
+
+   1.0e+03 *
+
+   -1.0200
+    0.0000
+    0.0001
+    1.0000
+    1.0000
+    1.0199
+    1.0200
+    1.0200
+
+
+V =
+
+  Columns 1 through 7
+
+    0.0031   -0.0447    0.6294   -0.1760   -0.3421    0.0623   -0.2236
+    0.0016   -0.0894   -0.3147    0.5330   -0.5549   -0.0312    0.4472
+    0.0016    0.0894    0.3147    0.3521    0.6841    0.0312    0.4472
+    0.0031    0.0447   -0.6294   -0.2665    0.2775   -0.0623   -0.2236
+    0.3162   -0.6261   -0.0312    0.4296    0.1531    0.3147   -0.4472
+    0.3162   -0.6261    0.0312   -0.4554    0.0239   -0.3147    0.4472
+   -0.6324   -0.3130    0.0623    0.2148    0.0766   -0.6294   -0.2236
+   -0.6324   -0.3130   -0.0623   -0.2277    0.0120    0.6294    0.2236
+
+  Column 8
+
+    0.6324
+    0.3162
+    0.3162
+    0.6324
+   -0.0016
+   -0.0016
+    0.0031
+    0.0031
+
+
+Lambda =
+
+   1.0e+03 *
+
+  Columns 1 through 7
+
+   -1.0200         0         0         0         0         0         0
+         0   -0.0000         0         0         0         0         0
+         0         0    0.0001         0         0         0         0
+         0         0         0    1.0000         0         0         0
+         0         0         0         0    1.0000         0         0
+         0         0         0         0         0    1.0199         0
+         0         0         0         0         0         0    1.0200
+         0         0         0         0         0         0         0
+
+  Column 8
+
+         0
+         0
+         0
+         0
+         0
+         0
+         0
+    1.0200
+
+</pre><h2>5.5 The linsolve function<a name="13"></a></h2><pre class="codeinput">A = [1 2 ; 3 4]
+b = [4 10]'
+A\b
+linsolve(A,b)
+</pre><pre class="codeoutput">
+A =
+
+     1     2
+     3     4
+
+
+b =
+
+     4
+    10
+
+
+ans =
+
+    2.0000
+    1.0000
+
+
+ans =
+
+    2.0000
+    1.0000
+
+</pre><pre class="codeinput">C = [2 1 ; 1 2]
+x = C\b
+</pre><pre class="codeoutput">
+C =
+
+     2     1
+     1     2
+
+
+x =
+
+   -0.6667
+    5.3333
+
+</pre><pre class="codeinput">R = chol(C)
+y = R'\b
+x = R\y
+</pre><pre class="codeoutput">
+R =
+
+    1.4142    0.7071
+         0    1.2247
+
+
+y =
+
+    2.8284
+    6.5320
+
+
+x =
+
+   -0.6667
+    5.3333
+
+</pre><pre class="codeinput">opts.UT = true
+opts.TRANSA = true
+y = linsolve(R,b,opts)
+</pre><pre class="codeoutput">
+opts = 
+
+        UT: 1
+    TRANSA: 1
+
+
+opts = 
+
+        UT: 1
+    TRANSA: 1
+
+
+y =
+
+    2.8284
+    6.5320
+
+</pre><h2>5.6 The find function<a name="18"></a></h2><pre class="codeinput">x = 2*rand(1,5)
+y = x(find(x &gt; 1))
+</pre><pre class="codeoutput">
+x =
+
+    0.8355    1.9661    0.6029    1.4022    1.3327
+
+
+y =
+
+    1.9661    1.4022    1.3327
+
+</pre><pre class="codeinput">A = rand(3)
+[i,j,x] = find(A)
+</pre><pre class="codeoutput">
+A =
+
+    0.5391    0.1781    0.1711
+    0.6981    0.1280    0.0326
+    0.6665    0.9991    0.5612
+
+
+i =
+
+     1
+     2
+     3
+     1
+     2
+     3
+     1
+     2
+     3
+
+
+j =
+
+     1
+     1
+     1
+     2
+     2
+     2
+     3
+     3
+     3
+
+
+x =
+
+    0.5391
+    0.6981
+    0.6665
+    0.1781
+    0.1280
+    0.9991
+    0.1711
+    0.0326
+    0.5612
+
+</pre><pre class="codeinput">[i,j,x] = find(A &gt; .5)
+[i j x]
+</pre><pre class="codeoutput">
+i =
+
+     1
+     2
+     3
+     3
+     3
+
+
+j =
+
+     1
+     1
+     1
+     2
+     3
+
+
+x =
+
+     1
+     1
+     1
+     1
+     1
+
+
+ans =
+
+     1     1     1
+     2     1     1
+     3     1     1
+     3     2     1
+     3     3     1
+
+</pre><h2>5.7 1-D indexing and the reshape function<a name="22"></a></h2><pre class="codeinput">A = rand(5)
+k = find(A &gt; .5)
+A(k)
+A(k) = A(k) + 99
+</pre><pre class="codeoutput">
+A =
+
+    0.8819    0.9816    0.1909    0.2262    0.6171
+    0.6692    0.1564    0.4283    0.3846    0.2653
+    0.1904    0.8555    0.4820    0.5830    0.8244
+    0.3689    0.6448    0.1206    0.2518    0.9827
+    0.4607    0.3763    0.5895    0.2904    0.7302
+
+
+k =
+
+     1
+     2
+     6
+     8
+     9
+    15
+    18
+    21
+    23
+    24
+    25
+
+
+ans =
+
+    0.8819
+    0.6692
+    0.9816
+    0.8555
+    0.6448
+    0.5895
+    0.5830
+    0.6171
+    0.8244
+    0.9827
+    0.7302
+
+
+A =
+
+   99.8819   99.9816    0.1909    0.2262   99.6171
+   99.6692    0.1564    0.4283    0.3846    0.2653
+    0.1904   99.8555    0.4820   99.5830   99.8244
+    0.3689   99.6448    0.1206    0.2518   99.9827
+    0.4607    0.3763   99.5895    0.2904   99.7302
+
+</pre><pre class="codeinput">A = rand(3)
+A(1,2)
+A(4)
+</pre><pre class="codeoutput">
+A =
+
+    0.3439    0.9063    0.2607
+    0.5841    0.8797    0.5944
+    0.1078    0.8178    0.0225
+
+
+ans =
+
+    0.9063
+
+
+ans =
+
+    0.9063
+
+</pre><pre class="codeinput">A(:)
+</pre><pre class="codeoutput">
+ans =
+
+    0.3439
+    0.5841
+    0.1078
+    0.9063
+    0.8797
+    0.8178
+    0.2607
+    0.5944
+    0.0225
+
+</pre><pre class="codeinput">A = magic(5)
+A([1 2 ; 5 6])
+A(1:7)
+A([1:7]')
+</pre><pre class="codeoutput">
+A =
+
+    17    24     1     8    15
+    23     5     7    14    16
+     4     6    13    20    22
+    10    12    19    21     3
+    11    18    25     2     9
+
+
+ans =
+
+    17    23
+    11    24
+
+
+ans =
+
+    17    23     4    10    11    24     5
+
+
+ans =
+
+    17
+    23
+     4
+    10
+    11
+    24
+     5
+
+</pre><pre class="codeinput">A([1 2 ; 5 6]) = 101:104
+A(1:7) = 0
+A([1:7]') = -1
+</pre><pre class="codeoutput">
+A =
+
+   101   104     1     8    15
+   103     5     7    14    16
+     4     6    13    20    22
+    10    12    19    21     3
+   102    18    25     2     9
+
+
+A =
+
+     0     0     1     8    15
+     0     0     7    14    16
+     0     6    13    20    22
+     0    12    19    21     3
+     0    18    25     2     9
+
+
+A =
+
+    -1    -1     1     8    15
+    -1    -1     7    14    16
+    -1     6    13    20    22
+    -1    12    19    21     3
+    -1    18    25     2     9
+
+</pre><pre class="codeinput">A = magic(5)
+k = [1 2 ; 5 6]
+k = k(:)
+A(k) = 101:104
+</pre><pre class="codeoutput">
+A =
+
+    17    24     1     8    15
+    23     5     7    14    16
+     4     6    13    20    22
+    10    12    19    21     3
+    11    18    25     2     9
+
+
+k =
+
+     1     2
+     5     6
+
+
+k =
+
+     1
+     5
+     2
+     6
+
+
+A =
+
+   101   104     1     8    15
+   103     5     7    14    16
+     4     6    13    20    22
+    10    12    19    21     3
+   102    18    25     2     9
+
+</pre><pre class="codeinput">A = reshape(1:16, 4, 4)
+C = reshape(A, 2, 8)
+</pre><pre class="codeoutput">
+A =
+
+     1     5     9    13
+     2     6    10    14
+     3     7    11    15
+     4     8    12    16
+
+
+C =
+
+     1     3     5     7     9    11    13    15
+     2     4     6     8    10    12    14    16
+
+</pre><h2>5.8 Logical indexing<a name="30"></a></h2><pre class="codeinput">A = rand(5)
+S = A &gt; .5
+A(S)
+A(S) = A(S) + 99
+</pre><pre class="codeoutput">
+A =
+
+    0.4253    0.0942    0.6385    0.6544    0.5313
+    0.3127    0.5985    0.0336    0.4076    0.3251
+    0.1615    0.4709    0.0688    0.8200    0.1056
+    0.1788    0.6959    0.3196    0.7184    0.6110
+    0.4229    0.6999    0.5309    0.9686    0.7788
+
+
+S =
+
+     0     0     1     1     1
+     0     1     0     0     0
+     0     0     0     1     0
+     0     1     0     1     1
+     0     1     1     1     1
+
+
+ans =
+
+    0.5985
+    0.6959
+    0.6999
+    0.6385
+    0.5309
+    0.6544
+    0.8200
+    0.7184
+    0.9686
+    0.5313
+    0.6110
+    0.7788
+
+
+A =
+
+    0.4253    0.0942   99.6385   99.6544   99.5313
+    0.3127   99.5985    0.0336    0.4076    0.3251
+    0.1615    0.4709    0.0688   99.8200    0.1056
+    0.1788   99.6959    0.3196   99.7184   99.6110
+    0.4229   99.6999   99.5309   99.9686   99.7788
+
+</pre><pre class="codeinput">S = randi([0 1], 5)
+A(S) <span class="comment">% fails</span>
+A(S==1) <span class="comment">% OK</span>
+</pre><pre class="codeoutput">
+S =
+
+     0     0     1     0     0
+     0     1     1     1     1
+     0     0     1     1     1
+     0     1     0     0     0
+     0     1     1     0     1
+
+</pre><pre class="codeoutput error">Subscript indices must either be real positive integers or logicals.
+
+Error in ch05 (line 170)
+A(S) % fails
+</pre><h2>5.9 The bsxfun and repmat functions<a name="33"></a></h2><pre class="codeinput">A = rand(5)
+C = A - mean(A(:))
+</pre><pre class="codeinput">n = size(A,1)
+C = A - repmat(mean(A), n, 1)
+</pre><pre class="codeinput">C = bsxfun(@minus, A, mean(A))
+mean(C)
+</pre><pre class="codeinput">C = bsxfun(@minus, A, mean(A,2))
+mean(C,2)
+</pre><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">  @plus + @minus
+</span><span class="comment">  @times . * @power .^
+</span><span class="comment">  @rdivide ./ @ldivide .\
+</span><span class="comment">  @lt &lt; @gt &gt;
+</span><span class="comment">  @le &lt;= @ge &gt;=
+</span><span class="comment">  @eq == @ne ~=
+</span><span class="comment">  @max maximum @min minimum
+</span><span class="comment">%}</span>
+</pre><pre class="codeinput">C = bsxfun(@minus, A, min(A))
+min(C)
+</pre><pre class="codeinput">d = max(abs(A), [], 2)
+C = bsxfun(@ldivide, d, A)
+C = diag(d) \ A
+n = size(A,1)
+C = spdiags(d,0,n,n) \ A
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 5 MATLAB Functions
+
+%% 5.1 Constructing matrices
+%%
+%{
+  eye         % identity matrix
+  zeros       % matrix of zeros
+  ones        % matrix of ones
+  diag        % create or extract diagonals
+  triu        % upper triangular part of a matrix
+  tril        % lower triangular part of a matrix
+  rand        % randomly generated matrix
+  hilb        % Hilbert matrix
+  magic       % magic square
+  toeplitz    % Toeplitz matrix
+  gallery     % a wide range of interesting matrices
+%}
+
+%%
+A = rand(3)
+
+%%
+x = 1:3
+diag(x)
+diag(A)
+diag(diag(A))
+
+%% 
+B = [A zeros(3,2) ; pi*ones(2,3), eye(2)]
+
+%% 
+triu(A)
+triu(A) == A
+
+%% 
+A = gallery('parter', 6)
+svd(A)
+
+%% 
+A = rosser;
+eig(A)
+eigs(A)
+
+%% 5.2 Scalar functions
+%{
+  abs atan2 exp log10 rem sqrt
+  acos ceil floor log2 round tan
+  asin conj imag mod sign
+  atan cos log real sin
+%}
+
+%% 
+x = (0:0.1:2)'
+y = sin(x)
+[x y]
+
+%% 5.3 Vector functions and data analysis
+%{
+  max sum median any sort var
+  min prod mean all std mode
+%}
+
+%% 5.4 Matrix functions
+%{
+  eig       % eigenvalues and eigenvectors
+  eigs      % like eig, for large sparse matrices
+  chol      % Cholesky factorization
+  svd       % singular value decomposition
+  svds      % like svd, for large sparse matrices
+  lu        % LU factorization
+  qr        % QR factorization
+  poly      % characteristic polynomial
+  det       % determinant
+  size      % size of an array
+  length    % length of a vector
+  norm      % 1-norm, 2-norm, Frobenius-norm, ∞-norm
+  cond      % condition number in the 2-norm
+  condest   % condition number estimate
+  rank      % rank
+  kron      % Kronecker tensor product
+  find      % find indices of nonzero entries
+  linsolve  % solve a special linear system
+%}
+
+lambda = eig(A)
+
+[V, Lambda] = eig(A)
+
+%% 5.5 The linsolve function
+
+%% 
+A = [1 2 ; 3 4]
+b = [4 10]'
+A\b
+linsolve(A,b)
+
+%% 
+C = [2 1 ; 1 2]
+x = C\b
+
+%% 
+R = chol(C)
+y = R'\b
+x = R\y
+
+%% 
+opts.UT = true
+opts.TRANSA = true
+y = linsolve(R,b,opts)
+
+%% 5.6 The find function
+%% 
+x = 2*rand(1,5)
+y = x(find(x > 1))
+
+%% 
+A = rand(3)
+[i,j,x] = find(A)
+
+%% 
+[i,j,x] = find(A > .5)
+[i j x]
+
+
+%% 5.7 1-D indexing and the reshape function
+%% 
+A = rand(5)
+k = find(A > .5)
+A(k)
+A(k) = A(k) + 99
+
+%% 
+A = rand(3)
+A(1,2)
+A(4)
+
+%% 
+A(:)
+
+%% 
+A = magic(5)
+A([1 2 ; 5 6])
+A(1:7)
+A([1:7]')
+
+%% 
+A([1 2 ; 5 6]) = 101:104
+A(1:7) = 0
+A([1:7]') = -1
+
+%% 
+A = magic(5)
+k = [1 2 ; 5 6]
+k = k(:)
+A(k) = 101:104
+
+%% 
+A = reshape(1:16, 4, 4)
+C = reshape(A, 2, 8)
+
+%% 5.8 Logical indexing
+%% 
+A = rand(5)
+S = A > .5
+A(S)
+A(S) = A(S) + 99
+
+%% 
+S = randi([0 1], 5)
+A(S) % fails
+A(S==1) % OK
+
+%% 5.9 The bsxfun and repmat functions
+%% 
+A = rand(5)
+C = A - mean(A(:))
+
+%% 
+n = size(A,1)
+C = A - repmat(mean(A), n, 1)
+
+%% 
+C = bsxfun(@minus, A, mean(A))
+mean(C)
+
+%% 
+C = bsxfun(@minus, A, mean(A,2))
+mean(C,2)
+
+%% 
+%{
+  @plus + @minus
+  @times . * @power .^
+  @rdivide ./ @ldivide .\
+  @lt < @gt >
+  @le <= @ge >=
+  @eq == @ne ~=
+  @max maximum @min minimum
+%}
+
+%% 
+C = bsxfun(@minus, A, min(A))
+min(C)
+
+%% 
+d = max(abs(A), [], 2)
+C = bsxfun(@ldivide, d, A)
+C = diag(d) \ A
+n = size(A,1)
+C = spdiags(d,0,n,n) \ A
+
+##### SOURCE END #####
+--></body></html>

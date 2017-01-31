@@ -1,0 +1,58 @@
+Preface
+Introduction 
+1. General Principles 
+2. Formatting 
+	Layout 
+	White Space 
+	Code Blocks 
+	Formatting Summary 
+3. Naming 
+	General 
+	Variables and Parameters 
+	Constants 
+	Structures and Cell Arrays 
+	Functions 
+	Classes 
+	Data Files and Directories 
+	Naming Summary 
+4. Documentation 
+	General 
+	Comments 
+		Header Comments 
+		Block Comments 
+		Interspersed or Inline Comments 
+	Documentation Summary 
+5. Programming 
+	General 
+	Variables and Constants 
+	Character Strings 
+	Structures 
+	Cell Arrays 
+	Expressions 
+	Statements
+	Loops 
+	Conditionals 
+	Logical Functions 
+	Vectorization 
+	Functions 
+	Input and Output 
+	Classes and Objects 
+	Exceptions, Errors, andWarnings
+	Output Style
+	Tests 
+	Data Files 
+	Programming Summary 
+6. Files and Organization 
+	Toolboxes 
+	Project Files 
+	Organization Summary 
+7. Development
+	Design
+	Development Practices 
+	MATLAB IDE Tools 
+	Development Summary 
+	Keywords
+	is? function list	
+Glossary 
+Bibliography 
+Index 
